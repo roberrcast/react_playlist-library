@@ -1,0 +1,8 @@
+@use "utils";
+
+body {
+    font-family: utils.$font;
+    background-color: utils.$backgroundColor;
+    color: utils.$mainFontColor;
+    font-weight: utils.$globalFontWeight;
+}

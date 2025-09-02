@@ -1,0 +1,13 @@
+@use "/src/styles/utils";
+
+.header {
+    &__title {
+        font-weight: utils.$globalFontWeight;
+    }
+
+    &__menu {
+        li {
+            list-style: none;
+        }
+    }
+}

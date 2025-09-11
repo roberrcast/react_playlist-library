@@ -3,9 +3,15 @@
 .header {
     &__title {
         font-weight: utils.$globalFontWeight;
+        padding: 0 25px; // Maybe add fluid property?
     }
 
     &__menu {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        gap: 25rem; // Add fluid property
+
         li {
             list-style: none;
         }

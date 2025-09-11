@@ -13,9 +13,9 @@ class Header extends Component {
 
                 <div className="header__menu-wrapper">
                     <ul className="header__menu">
-                        <li className="header__menu-item">Login</li>
-
                         <li className="header__menu-item">Songs</li>
+
+                        <li className="header__menu-item">Login</li>
 
                         <li className="header__menu-item">About</li>
                     </ul>

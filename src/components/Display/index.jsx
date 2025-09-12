@@ -4,17 +4,38 @@ import Song from "../Song";
 import "./Display.scss";
 
 class Display extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            defaultImageShowcase: songList[0].albumArt,
+            defaultAltShowcase: songList[0].alt,
+            defaultTitleShowcase: songList[0].title,
+            defaultArtistShowcase: songList[0].artist,
+        };
+    }
+
     render() {
         return (
             <>
                 <article className="display">
                     <section className="display__showcase">
-                        <div className="display__album-art"></div>
+                        <div className="display__album-art">
+                            <img
+                                src={this.state.defaultImageShowcase}
+                                alt={this.state.defaultAltShowcase}
+                                className="display__album-img"
+                            />
+                        </div>
 
                         <div className="display__info">
-                            <h3 className="display__title"></h3>
+                            <h3 className="display__title">
+                                {this.state.defaultTitleShowcase}
+                            </h3>
 
-                            <p className="display__band"></p>
+                            <p className="display__band">
+                                {this.state.defaultArtistShowcase}
+                            </p>
                         </div>
                     </section>
 

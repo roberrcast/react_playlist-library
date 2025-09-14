@@ -8,12 +8,13 @@ class Display extends Component {
         super(props);
 
         this.state = {
-            defaultImageShowcase: songList[0].albumArt,
-            defaultAltShowcase: songList[0].alt,
-            defaultTitleShowcase: songList[0].title,
-            defaultArtistShowcase: songList[0].artist,
+            defaultSong: songList[0],
         };
     }
+
+    handleSongClick = () => {
+        this.setState({});
+    };
 
     render() {
         return (
@@ -22,19 +23,19 @@ class Display extends Component {
                     <section className="display__showcase">
                         <div className="display__album-art">
                             <img
-                                src={this.state.defaultImageShowcase}
-                                alt={this.state.defaultAltShowcase}
+                                src={this.state.defaultSong.albumArt}
+                                alt={this.state.defaultSong.alt}
                                 className="display__album-img"
                             />
                         </div>
 
                         <div className="display__info">
                             <h3 className="display__title">
-                                {this.state.defaultTitleShowcase}
+                                {this.state.defaultSong.title}
                             </h3>
 
                             <p className="display__band">
-                                {this.state.defaultArtistShowcase}
+                                {this.state.defaultSong.artist}
                             </p>
                         </div>
                     </section>

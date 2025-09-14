@@ -12,8 +12,8 @@ class Display extends Component {
         };
     }
 
-    handleSongClick = () => {
-        this.setState({});
+    handleSongClick = (song) => {
+        this.setState({ defaultSong: song });
     };
 
     render() {
@@ -52,7 +52,11 @@ class Display extends Component {
                         </div>
 
                         {songList.map((song) => (
-                            <div className="display__grid-item" key={song.id}>
+                            <div
+                                className="display__grid-item"
+                                key={song.id}
+                                onClick={() => this.handleSongClick(song)}
+                            >
                                 <Song
                                     id={song.id}
                                     album={song.album}

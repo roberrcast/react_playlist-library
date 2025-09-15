@@ -1,19 +1,22 @@
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import Display from "./components/Display";
+import React, { Component } from "react";
 
-function app() {
-    return (
-        <div className="app">
-            <Header title="Biblioteca" />
+class App extends Component {
+    render() {
+        return (
+            <div className="app">
+                <Header title="Biblioteca" />
 
-            <main>
-                <Sidebar />
+                <main>
+                    <Sidebar />
 
-                <Display />
-            </main>
-        </div>
-    );
+                    <Display />
+                </main>
+            </div>
+        );
+    }
 }
 
-export default app;
+export default App;

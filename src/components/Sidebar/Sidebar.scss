@@ -1,1 +1,43 @@
 @use "/src/styles/utils";
+
+.sidebar {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+
+    &__wrapper {
+        background-color: utils.$sidebarBg;
+        flex-grow: 1; // Esto es para darle al sidebar el espacio entero de la página, el padre debe ser un contenedor flex
+        padding: 1rem;
+        border-radius: 15px;
+    }
+
+    &__form {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+    }
+
+    &__input {
+        color: utils.$mainFontColor;
+        border: none;
+        background-color: utils.$inputBg;
+        padding: 0.5rem;
+        border-radius: 15px;
+        @include utils.focusGlow(utils.$coolBlue);
+    }
+
+    &__button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        background-color: transparent;
+        color: utils.$svgSearchColor;
+        @include utils.hover;
+    }
+
+    &__title {
+        font-weight: 200;
+    }
+}

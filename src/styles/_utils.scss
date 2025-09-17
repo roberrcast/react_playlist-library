@@ -2,5 +2,24 @@
 
 $font: "Roboto", Arial, sans-serif;
 $backgroundColor: #1e1e1e;
+$inputBg: hsla(0, 0%, 15%, 0.75);
+$coolBlue: hsla(217.4, 89%, 60.8%, 0.75);
+$sidebarBg: hsla(0, 0%, 7%, 0.75);
 $mainFontColor: #fafafa;
 $globalFontWeight: 100;
+$svgSearchColor: hsla(0, 0%, 29.8%, 1);
+
+@mixin focusGlow($color: #a6e2a2, $blur: 10px, $spread: 3px) {
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 $blur $spread $color;
+    }
+}
+
+@mixin hover {
+    @media (hover: hover) {
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}

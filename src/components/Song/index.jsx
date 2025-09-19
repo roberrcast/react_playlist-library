@@ -5,11 +5,13 @@ class Song extends Component {
     render() {
         return (
             <>
-                <img
-                    src={this.props.art}
-                    alt={this.props.alt}
-                    className="display__grid-art"
-                />
+                <div className="display__grid-art">
+                    <img
+                        src={this.props.art}
+                        alt={this.props.alt}
+                        className="display__grid-img"
+                    />
+                </div>
 
                 <p className="display__grid-title">{this.props.title}</p>
 

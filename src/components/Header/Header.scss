@@ -1,6 +1,7 @@
 @use "/src/styles/utils";
 
 .header {
+    margin-bottom: 4rem;
     &__title {
         font-weight: utils.$globalFontWeight;
         padding: 0 25px; // Maybe add fluid property?

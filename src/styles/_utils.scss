@@ -8,6 +8,7 @@ $sidebarBg: hsla(0, 0%, 7%, 0.75);
 $mainFontColor: #fafafa;
 $globalFontWeight: 100;
 $svgSearchColor: hsla(0, 0%, 29.8%, 1);
+$defaultPadding: 0 25px;
 
 @mixin focusGlow($color: #a6e2a2, $blur: 10px, $spread: 3px) {
     &:focus {

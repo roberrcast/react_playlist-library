@@ -1,17 +1,19 @@
 @use "/src/styles/utils";
+@use "../../styles/fluid-design";
 
 .header {
     margin-bottom: 4rem;
     &__title {
         font-weight: utils.$globalFontWeight;
-        padding: 0 25px; // Maybe add fluid property?
+        padding: 0 25px;
+        font-size: fluid-design.fluid(1.5rem, 2.5rem, 28.409rem, 109.091rem);
     }
 
     &__menu {
         display: flex;
         width: 100%;
         justify-content: center;
-        gap: 25rem; // Add fluid property
+        gap: fluid-design.fluid(4rem, 25rem, 28.409rem, 109.091rem);
 
         li {
             list-style: none;

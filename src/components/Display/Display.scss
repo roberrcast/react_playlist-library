@@ -1,26 +1,42 @@
 @use "/src/styles/utils";
+@use "../../styles/fluid-design";
+@use "../../styles/query";
 
 .display {
     width: 100%;
 
     &__inner {
         padding: 0 25px;
+
+        @include query.respond("400px") {
+            padding: 0px;
+        }
     }
 
     &__showcase {
         display: flex;
         gap: 1rem;
         padding: 0 25px;
+
+        @include query.respond("850px") {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @include query.respond("400px") {
+            padding: 0px;
+        }
     }
 
     &__album {
         &-art {
-            width: 15rem;
-            height: 15rem;
+            width: fluid-design.fluid(12rem, 15rem, 47.375rem, 109.091rem);
+            height: fluid-design.fluid(12rem, 15rem, 47.375rem, 109.091rem);
         }
 
         &-img {
             width: 100%;
+            border-radius: fluid-design.fluid(20px, 35px, 758px, 1600px);
         }
     }
 
@@ -49,9 +65,18 @@
             background-color: utils.$sidebarBg;
         }
 
+        &-item {
+            font-size: fluid-design.fluid(0.85rem, 1rem, 25rem, 106.25rem);
+        }
+
         &-art {
-            width: 50px;
+            //width: 40px;
+            width: fluid-design.fluid(25px, 40px, 400px, 1700px);
             display: flex;
+
+            @include query.respond("400px") {
+                width: 25px;
+            }
         }
 
         &-img {
@@ -61,13 +86,24 @@
             border-radius: 8px;
         }
 
+        &-title,
+        &-artist,
+        &-album,
+        &-time {
+            font-size: fluid-design.fluid(0.7rem, 1rem, 22.656rem, 109.091rem);
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+        }
+
         &-row {
             display: grid;
             grid-template-columns: subgrid;
             grid-column: 1 / -1;
             align-items: center;
-            padding: 0 25px;
-            border-radius: 12px;
+            padding: 0 fluid-design.fluid(10px, 25px, 400px, 1700px);
+            border-radius: 20px;
             @include utils.hover;
         }
     }

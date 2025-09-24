@@ -1,15 +1,77 @@
 @use "/src/styles/utils";
+@use "../../styles/fluid-design";
+@use "../../styles/query";
 
 .sidebar {
     padding: 0 1rem 1rem 1rem;
     display: flex;
     flex-direction: column;
 
+    &__btn-toggle,
+    &__close-btn {
+        display: none;
+    }
+
     &__wrapper {
         background-color: utils.$sidebarBg;
         flex-grow: 1; // Esto es para darle al sidebar el espacio entero de la página, el padre debe ser un contenedor flex
         padding: 1rem;
         border-radius: 15px;
+        position: relative;
+    }
+
+    @include query.respond("850px") {
+        .sidebar {
+            padding: 1rem;
+        }
+
+        &__btn-toggle {
+            display: block;
+            font-size: 1.5rem;
+            background: transparent;
+            color: utils.$mainFontColor;
+            border-radius: 12px;
+            padding: 0.5rem;
+            display: flex;
+            border: none;
+            @include utils.hover;
+        }
+
+        &__wrapper {
+            display: none;
+        }
+    }
+
+    &--is-open {
+        .sidebar__toggle-btn {
+            display: none;
+        }
+
+        .sidebar__wrapper {
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            height: 100%;
+            z-index: 1000;
+            border-radius: 0;
+        }
+    }
+
+    &__close-btn {
+        .sidebar--is-open & {
+            display: block;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1001;
+            background: transparent;
+            border: none;
+            color: utils.$mainFontColor;
+            font-size: 1.5rem;
+            @include utils.hover;
+        }
     }
 
     &__form {
@@ -39,5 +101,10 @@
 
     &__title {
         font-weight: 200;
+        font-size: fluid-design.fluid(1.2rem, 1.5rem, 22.656rem, 109.091rem);
+    }
+
+    @include query.respond("500px") {
+        padding: 0rem;
     }
 }

@@ -2,12 +2,33 @@ import React, { Component } from "react";
 import { FaSearch } from "react-icons/fa";
 import List from "../List";
 import "./Sidebar.scss";
+import { FaBars } from "react-icons/fa";
+import { FaTimes } from "react-icons/fa";
 
 class Sidebar extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isOpen: false,
+        };
+    }
+
+    toggle = () => {
+        this.setState({ isOpen: !this.state.isOpen });
+    };
+
     render() {
+        const sidebarClassName = `sidebar ${this.state.isOpen ? "sidebar--is-open" : ""}`;
+
         return (
             <>
-                <aside className="sidebar">
+                <aside className={sidebarClassName}>
+                    <button
+                        className="sidebar__btn-toggle"
+                        onClick={this.toggle}
+                    >
+                        <FaBars />
+                    </button>
                     <div className="sidebar__wrapper">
                         <search className="sidebar__search">
                             <form action="" className="sidebar__form">
@@ -19,6 +40,10 @@ class Sidebar extends Component {
                                 />
                                 <button className="sidebar__button">
                                     <FaSearch />
+                                </button>
+
+                                <button className="sidebar__close-btn">
+                                    <FaTimes />
                                 </button>
                             </form>
                         </search>

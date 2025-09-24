@@ -7,10 +7,6 @@
     display: flex;
     flex-direction: column;
 
-    @include query.respond("400px") {
-        padding: 0rem;
-    }
-
     &__btn-toggle,
     &__close-btn {
         display: none;
@@ -106,5 +102,9 @@
     &__title {
         font-weight: 200;
         font-size: fluid-design.fluid(1.2rem, 1.5rem, 22.656rem, 109.091rem);
+    }
+
+    @include query.respond("500px") {
+        padding: 0rem;
     }
 }

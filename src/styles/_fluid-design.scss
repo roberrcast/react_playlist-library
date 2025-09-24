@@ -1,0 +1,26 @@
+/* Esta es una función para hacer del diseño de la página fluida-responsiva */
+
+@use "sass:math";
+
+@function fluid(
+    $min-size,
+    $max-size,
+    $min-breakpoint,
+    $max-breakpoint,
+    $unit: vw
+) {
+    $slope: math.div($max-size - $min-size, $max-breakpoint - $min-breakpoint);
+
+    $slope-to-unit: $slope * 100;
+
+    $intercept: $min-size - $slope * $min-breakpoint;
+
+    @return clamp(
+        #{$min-size},
+        #{$slope-to-unit}#{$unit} + #{$intercept},
+        #{$max-size}
+    );
+}
+
+// Ejemplo de uso
+//  font-size: fluid-design.fluid(1.5rem, 2.5rem, 20rem, 87.5rem);

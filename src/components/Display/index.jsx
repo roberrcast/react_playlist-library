@@ -1,84 +1,74 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { songList } from "../../songInfo";
 import Song from "../Song";
 import "./Display.scss";
 
-class Display extends Component {
-    constructor(props) {
-        super(props);
+const Display = () => {
+    const [defaultSong, setSong] = useState(songList[0]);
 
-        this.state = {
-            defaultSong: songList[0],
-        };
-    }
-
-    handleSongClick = (song) => {
-        this.setState({ defaultSong: song });
+    const handleSongClick = (song) => {
+        setSong(song);
     };
 
-    render() {
-        return (
-            <>
-                <article className="display">
-                    <div className="display__inner">
-                        <section className="display__showcase">
-                            <div className="display__album-art">
-                                <img
-                                    src={this.state.defaultSong.albumArt}
-                                    alt={this.state.defaultSong.alt}
-                                    className="display__album-img"
-                                />
-                            </div>
+    return (
+        <>
+            <article className="display">
+                <div className="display__inner">
+                    <section className="display__showcase">
+                        <div className="display__album-art">
+                            <img
+                                src={defaultSong.albumArt}
+                                alt={defaultSong.alt}
+                                className="display__album-img"
+                            />
+                        </div>
 
-                            <div className="display__info">
-                                <h3 className="display__title">
-                                    {this.state.defaultSong.title}
-                                </h3>
+                        <div className="display__info">
+                            <h3 className="display__title">
+                                {defaultSong.title}
+                            </h3>
 
-                                <p className="display__band">
-                                    {this.state.defaultSong.artist}
-                                </p>
-                            </div>
-                        </section>
+                            <p className="display__band">
+                                {defaultSong.artist}
+                            </p>
+                        </div>
+                    </section>
 
-                        <section className="display__playlist">
-                            <div className="display__grid">
-                                <h4 className="display__grid-item"></h4>
+                    <section className="display__playlist">
+                        <div className="display__grid">
+                            <h4 className="display__grid-item"></h4>
 
-                                <h4 className="display__grid-item">song</h4>
+                            <h4 className="display__grid-item">song</h4>
 
-                                <h4 className="display__grid-item">artist</h4>
+                            <h4 className="display__grid-item">artist</h4>
 
-                                <h4 className="display__grid-item">album</h4>
+                            <h4 className="display__grid-item">album</h4>
 
-                                <h4 className="display__grid-item">time</h4>
+                            <h4 className="display__grid-item">time</h4>
 
-                                {songList.map((song) => (
-                                    <div
-                                        className="display__grid-row"
-                                        key={song.id}
-                                        onClick={() =>
-                                            this.handleSongClick(song)
-                                        }
-                                    >
-                                        <Song
-                                            id={song.id}
-                                            album={song.album}
-                                            artist={song.artist}
-                                            title={song.title}
-                                            time={song.length}
-                                            art={song.albumArt}
-                                            alt={song.alt}
-                                        />
-                                    </div>
-                                ))}
-                            </div>
-                        </section>
-                    </div>
-                </article>
-            </>
-        );
-    }
-}
+                            {songList.map((song) => (
+                                <div
+                                    className="display__grid-row"
+                                    key={song.id}
+                                    onClick={() => handleSongClick(song)}
+                                >
+                                    <Song
+                                        id={song.id}
+                                        album={song.album}
+                                        artist={song.artist}
+                                        title={song.title}
+                                        time={song.length}
+                                        art={song.albumArt}
+                                        alt={song.alt}
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                </div>
+            </article>
+        </>
+    );
+};
 
 export default Display;

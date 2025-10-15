@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { songList } from "../../songInfo";
+//import { songList } from "../../songInfo";
+import { songList } from "../SearchResults";
 import Song from "../Song";
 import "./Display.scss";
 

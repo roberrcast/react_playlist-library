@@ -37,6 +37,8 @@
         &-img {
             width: 100%;
             border-radius: fluid-design.fluid(20px, 35px, 758px, 1600px);
+            aspect-ratio: 1;
+            object-fit: cover;
         }
     }
 

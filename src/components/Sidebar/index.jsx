@@ -5,7 +5,7 @@ import "./Sidebar.scss";
 import { FaBars } from "react-icons/fa";
 import { FaTimes } from "react-icons/fa";
 
-function Sidebar() {
+function Sidebar({ onSearch }) {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggle = () => {
@@ -28,6 +28,9 @@ function Sidebar() {
                                 id="search"
                                 className="sidebar__input"
                                 placeholder="Búsqueda"
+                                onChange={(event) =>
+                                    onSearch(event.target.value)
+                                }
                             />
                             <button className="sidebar__button">
                                 <FaSearch />

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-//import { songList } from "../../songInfo";
-import { songList } from "../SearchResults";
+import { songData } from "../../data/songInfo.js";
+import SearchResults from "../SearchResults";
+import Library from "../Library";
 import Song from "../Song";
 import "./Display.scss";
 
-const Display = () => {
-    const [defaultSong, setSong] = useState(songList[0]);
+const Display = ({ songsToDisplay, librarySongs, searchQueryl }) => {
+    const [defaultSong, setSong] = useState(songData[0]);
 
     const handleSongClick = (song) => {
         setSong(song);
@@ -46,24 +47,6 @@ const Display = () => {
                             <h4 className="display__grid-item">album</h4>
 
                             <h4 className="display__grid-item">time</h4>
-
-                            {songList.map((song) => (
-                                <div
-                                    className="display__grid-row"
-                                    key={song.id}
-                                    onClick={() => handleSongClick(song)}
-                                >
-                                    <Song
-                                        id={song.id}
-                                        album={song.album}
-                                        artist={song.artist}
-                                        title={song.title}
-                                        time={song.length}
-                                        art={song.albumArt}
-                                        alt={song.alt}
-                                    />
-                                </div>
-                            ))}
                         </div>
                     </section>
                 </div>

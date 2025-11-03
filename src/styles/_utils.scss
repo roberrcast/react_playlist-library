@@ -6,9 +6,12 @@ $inputBg: hsla(0, 0%, 15%, 0.75);
 $coolBlue: hsla(217.4, 89%, 60.8%, 0.75);
 $sidebarBg: hsla(0, 0%, 7%, 0.75);
 $mainFontColor: #fafafa;
+$iconColor: #a9a9a9;
 $globalFontWeight: 100;
 $svgSearchColor: hsla(0, 0%, 29.8%, 1);
 $defaultPadding: 0 25px;
+
+//Mixins
 
 @mixin focusGlow($color: #a6e2a2, $blur: 10px, $spread: 3px) {
     &:focus {

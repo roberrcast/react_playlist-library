@@ -1,20 +1,22 @@
 import React from "react";
+import Song from "../Song";
 import "../Song/Song.scss";
 
-const Library = ({ art, alt, title, artist, album, time }) => {
+const Library = ({ onSongClick, librarySongs, onDeleteFromLibrary }) => {
     return (
         <>
-            <div className="display__grid-art">
-                <img src={art} alt={alt} className="display__grid-img" />
-            </div>
-
-            <p className="display__grid-title">{title}</p>
-
-            <p className="display__grid-artist">{artist}</p>
-
-            <p className="display__grid-album">{album}</p>
-
-            <p className="display__grid-time">{time}</p>
+            {librarySongs.map((song) => (
+                <div
+                    className="display__grid-row"
+                    key={song.id}
+                    onClick={() => onSongClick(song)}
+                >
+                    <Song
+                        song={song}
+                        onDeleteFromLibrary={onDeleteFromLibrary}
+                    />
+                </div>
+            ))}
         </>
     );
 };

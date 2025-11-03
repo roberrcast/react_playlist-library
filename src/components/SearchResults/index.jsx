@@ -1,29 +1,35 @@
 import Song from "../Song/";
+import "../Song/Song.scss";
 
-function SearchResults({ songsToDisplay, onSongClick }) {
+function SearchResults({
+    songsToDisplay,
+    librarySongs,
+    onSongClick,
+    onAddToLibrary,
+}) {
     return (
         <>
-            {songsToDisplay.map((song) => (
-                <div
-                    className="display__grid-row"
-                    key={song.id}
-                    onClick={() => onSongClick(song)}
-                >
-                    <Song
-                        id={song.id}
-                        album={song.album}
-                        artist={song.artist}
-                        title={song.title}
-                        time={song.length}
-                        art={song.albumArt}
-                        alt={song.alt}
-                    />
-                </div>
-            ))}
+            {songsToDisplay.map((song) => {
+                const isInLibrary = librarySongs.some(
+                    (libSong) => libSong.id === song.id,
+                );
+
+                return (
+                    <div
+                        className="display__grid-row"
+                        key={song.id}
+                        onClick={() => onSongClick(song)}
+                    >
+                        <Song
+                            song={song}
+                            onAddToLibrary={onAddToLibrary}
+                            isInLibrary={isInLibrary}
+                        />
+                    </div>
+                );
+            })}
         </>
     );
 }
 
 export default SearchResults;
-
-/* Continue refactoring this to .map over the list of songs in songData to here */

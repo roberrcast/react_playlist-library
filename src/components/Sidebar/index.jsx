@@ -5,7 +5,7 @@ import "./Sidebar.scss";
 import { FaBars } from "react-icons/fa";
 import { FaTimes } from "react-icons/fa";
 
-function Sidebar({ onSearch }) {
+function Sidebar({ onSearch, onShowLibrary }) {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggle = () => {
@@ -22,7 +22,11 @@ function Sidebar({ onSearch }) {
                 </button>
                 <div className="sidebar__wrapper">
                     <search className="sidebar__search">
-                        <form action="" className="sidebar__form">
+                        <form
+                            action=""
+                            className="sidebar__form"
+                            onSubmit={(event) => event.preventDefault()}
+                        >
                             <input
                                 type="search"
                                 id="search"
@@ -32,7 +36,7 @@ function Sidebar({ onSearch }) {
                                     onSearch(event.target.value)
                                 }
                             />
-                            <button className="sidebar__button">
+                            <button type="button" className="sidebar__button">
                                 <FaSearch />
                             </button>
 
@@ -48,7 +52,9 @@ function Sidebar({ onSearch }) {
 
                     <section className="sidebar__list">
                         <h2 className="sidebar__title">Playlists</h2>
-                        <List name="Playlist 1" />
+                        <div onClick={onShowLibrary}>
+                            <List name="Playlist 1" />
+                        </div>
                     </section>
                 </div>
             </aside>

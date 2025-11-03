@@ -52,12 +52,17 @@
     &__playlist {
         width: 100%;
         margin-top: 4rem;
+
+        &-messages {
+            display: flex;
+            justify-content: center;
+        }
     }
 
     &__grid {
         display: grid;
         //grid-template-columns: repeat(5, minmax(min(100%, 70px), 1fr));
-        grid-template-columns: auto 1fr 1fr 1fr auto;
+        grid-template-columns: auto 1fr 1fr 1fr auto auto;
         align-items: center;
         justify-content: center;
         margin-bottom: 3rem;

@@ -5,6 +5,12 @@
         }
     }
 
+    @if ($breakpoint == "700px") {
+        @media (max-width: 700px) {
+            @content;
+        }
+    }
+
     @if ($breakpoint == "500px") {
         @media (max-width: 500px) {
             @content;

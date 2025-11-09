@@ -1,4 +1,5 @@
 // Variables
+@use "../styles/fluid-design";
 
 $font: "Roboto", Arial, sans-serif;
 $backgroundColor: #1e1e1e;
@@ -7,9 +8,12 @@ $coolBlue: hsla(217.4, 89%, 60.8%, 0.75);
 $sidebarBg: hsla(0, 0%, 7%, 0.75);
 $mainFontColor: #fafafa;
 $iconColor: #a9a9a9;
+$tickColor: #4f6272;
 $globalFontWeight: 100;
 $svgSearchColor: hsla(0, 0%, 29.8%, 1);
 $defaultPadding: 0 25px;
+$dryRed: #6b312d;
+$redHover: #bb453a;
 
 //Mixins
 
@@ -26,4 +30,51 @@ $defaultPadding: 0 25px;
             cursor: pointer;
         }
     }
+}
+
+@mixin hoverText(
+    $transitionTime,
+    $transitionAnimation,
+    $fontWeight,
+    $scale: 1
+) {
+    transition: $transitionTime $transitionAnimation;
+
+    @media (hover: hover) {
+        &:hover {
+            cursor: pointer;
+            font-weight: $fontWeight;
+            transform: scale($scale);
+        }
+    }
+}
+
+@mixin hoverButton($fill, $fillHover, $transitionDuration, $animation) {
+    fill: $fill;
+
+    @media (hover: hover) {
+        &:hover {
+            fill: $fillHover;
+            transform: $transitionDuration $animation;
+        }
+    }
+}
+
+@mixin fullWidth {
+    width: 100%;
+    height: 100%;
+}
+
+@mixin playlistButton($background, $border) {
+    background: $background;
+    border: $border;
+    @include hover;
+}
+
+@mixin text-ellipsis-style {
+    font-size: fluid-design.fluid(0.7rem, 1rem, 22.656rem, 109.091rem);
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
 }

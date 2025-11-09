@@ -32,6 +32,7 @@ function Sidebar({ onSearch, onShowLibrary }) {
                                 id="search"
                                 className="sidebar__input"
                                 placeholder="Búsqueda"
+                                autoComplete={"off"}
                                 onChange={(event) =>
                                     onSearch(event.target.value)
                                 }

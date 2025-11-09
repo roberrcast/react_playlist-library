@@ -34,10 +34,10 @@ const Display = ({
                                 </div>
 
                                 <div className="display__info">
-                                    <h3 className="display__title">
+                                    <h3 className="display__info-title">
                                         {defaultSong.title}
                                     </h3>
-                                    <p className="display__band">
+                                    <p className="display__info-band">
                                         {defaultSong.artist}
                                     </p>
                                 </div>
@@ -54,7 +54,6 @@ const Display = ({
                     <section className="display__playlist">
                         {activeList.length > 0 ? (
                             <div className="display__grid">
-                                <h4 className="display__grid-item"></h4>
                                 <h4 className="display__grid-item">song</h4>
                                 <h4 className="display__grid-item">artist</h4>
                                 <h4 className="display__grid-item">album</h4>
@@ -80,11 +79,11 @@ const Display = ({
                         ) : (
                             <div className="display__playlist-messages">
                                 {searchQuery ? (
-                                    <p className="display__playlist-messages display__playlist-messages--no-results">
+                                    <p className="display__playlist-messages--no-results">
                                         No se encontraron resultados
                                     </p>
                                 ) : (
-                                    <p className="display__playlist-messages display__playlist-messages--empty">
+                                    <p className="display__playlist-messages--empty">
                                         Su biblioteca está vacía
                                     </p>
                                 )}

@@ -52,10 +52,10 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 280px;
+            width: 290px;
             height: 100%;
             z-index: 1000;
-            border-radius: 0;
+            border-radius: 10px;
         }
     }
 
@@ -63,13 +63,13 @@
         .sidebar--is-open & {
             display: block;
             position: absolute;
-            top: 1rem;
-            right: 1rem;
+            top: 5px;
+            right: 0;
             z-index: 1001;
             background: transparent;
             border: none;
             color: utils.$mainFontColor;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             @include utils.hover;
         }
     }
@@ -102,6 +102,12 @@
     &__title {
         font-weight: 200;
         font-size: fluid-design.fluid(1.2rem, 1.5rem, 22.656rem, 109.091rem);
+    }
+
+    &__playlist {
+        &-name {
+            @include utils.hoverText(0.2s, ease-in-out, 200, 1.01);
+        }
     }
 
     @include query.respond("500px") {

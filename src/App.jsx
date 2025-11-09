@@ -58,8 +58,10 @@ function App() {
         setSongsToDisplay([]);
     };
 
+    //Variable para decirle a useEffect que es el primer render y que no haga el console.log
     const isInitialMount = useRef(true);
 
+    //useEffet para imprimir en la consola cada vez que la biblioteca se actualice
     useEffect(() => {
         if (isInitialMount.current) {
             isInitialMount.current = false;

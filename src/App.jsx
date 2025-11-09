@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { songData } from "./data/songInfo.js";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
@@ -52,10 +52,21 @@ function App() {
         );
     };
 
+    //Función para limpiar el search query del searchbox y mostrar la biblioteca del usuario cuando se hace click al nombre de la playlist en Sidebar ("Playlist 1")
     const handleShowLibrary = () => {
         setSearchQuery("");
         setSongsToDisplay([]);
     };
+
+    const isInitialMount = useRef(true);
+
+    useEffect(() => {
+        if (isInitialMount.current) {
+            isInitialMount.current = false;
+        } else {
+            console.log("La biblioteca se ha actualizado");
+        }
+    }, [librarySongs]);
 
     return (
         <div className="app">

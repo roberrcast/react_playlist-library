@@ -1,5 +1,6 @@
-// Variables
 @use "../styles/fluid-design";
+
+// Variables
 
 $font: "Roboto", Arial, sans-serif;
 $backgroundColor: #1e1e1e;
@@ -17,6 +18,7 @@ $redHover: #bb453a;
 
 //Mixins
 
+//Mixin para el focus del searchbar
 @mixin focusGlow($color: #a6e2a2, $blur: 10px, $spread: 3px) {
     &:focus {
         outline: none;
@@ -24,6 +26,7 @@ $redHover: #bb453a;
     }
 }
 
+//Efecto hover
 @mixin hover {
     @media (hover: hover) {
         &:hover {
@@ -32,6 +35,7 @@ $redHover: #bb453a;
     }
 }
 
+//Hover para texto
 @mixin hoverText(
     $transitionTime,
     $transitionAnimation,
@@ -49,6 +53,7 @@ $redHover: #bb453a;
     }
 }
 
+//Hover para botones
 @mixin hoverButton($fill, $fillHover, $transitionDuration, $animation) {
     fill: $fill;
 
@@ -60,17 +65,20 @@ $redHover: #bb453a;
     }
 }
 
+//Mixin para darle full-width a algún elemento
 @mixin fullWidth {
     width: 100%;
     height: 100%;
 }
 
+//Estilo y hover para los botones del Playlist (add)
 @mixin playlistButton($background, $border) {
     background: $background;
     border: $border;
     @include hover;
 }
 
+//Elipsis para el texto del playlist
 @mixin text-ellipsis-style {
     font-size: fluid-design.fluid(0.7rem, 1rem, 22.656rem, 109.091rem);
     overflow: hidden;

@@ -19,52 +19,56 @@ const Song = ({ song, onAddToLibrary, onDeleteFromLibrary, isInLibrary }) => {
 
     return (
         <>
-            <div className="display__grid-art">
-                <img
-                    src={song.albumArt}
-                    alt={song.alt}
-                    className="display__grid-img"
-                />
-            </div>
+            <div className="display__wrapper-outer">
+                <div className="display__grid-art">
+                    <img
+                        src={song.albumArt}
+                        alt={song.alt}
+                        className="display__grid-img"
+                    />
+                </div>
 
-            <p className="display__grid-title">{song.title}</p>
+                <div className="display__wrapper-inner">
+                    <p className="display__grid-title">{song.title}</p>
 
-            <p className="display__grid-artist">{song.artist}</p>
+                    <p className="display__grid-artist">{song.artist}</p>
+                </div>
 
-            <p className="display__grid-album">{song.album}</p>
+                <p className="display__grid-album">{song.album}</p>
 
-            <div className="display__grid-btn-container">
-                {onAddToLibrary && isInLibrary && (
-                    <button className="display__grid-btn--ticked" disabled>
-                        <TickIcon />
-                    </button>
-                )}
+                <div className="display__grid-btn-container">
+                    {onAddToLibrary && isInLibrary && (
+                        <button className="display__grid-btn--ticked" disabled>
+                            <TickIcon className="display__grid-svg--ticked" />
+                        </button>
+                    )}
 
-                {onAddToLibrary && !isInLibrary && (
-                    <button
-                        type="button"
-                        className="display__grid-btn"
-                        onClick={(e) =>
-                            handleButtonClick(e, () => onAddToLibrary(song))
-                        }
-                    >
-                        <AddIcon />
-                    </button>
-                )}
+                    {onAddToLibrary && !isInLibrary && (
+                        <button
+                            type="button"
+                            className="display__grid-btn"
+                            onClick={(e) =>
+                                handleButtonClick(e, () => onAddToLibrary(song))
+                            }
+                        >
+                            <AddIcon className="display__grid-svg" />
+                        </button>
+                    )}
 
-                {onDeleteFromLibrary && (
-                    <button
-                        type="button"
-                        className="display__grid-btn"
-                        onClick={(e) =>
-                            handleButtonClick(e, () =>
-                                onDeleteFromLibrary(song.id),
-                            )
-                        }
-                    >
-                        <DeleteIcon />
-                    </button>
-                )}
+                    {onDeleteFromLibrary && (
+                        <button
+                            type="button"
+                            className="display__grid-btn"
+                            onClick={(e) =>
+                                handleButtonClick(e, () =>
+                                    onDeleteFromLibrary(song.id),
+                                )
+                            }
+                        >
+                            <DeleteIcon className="display__grid-svg--delete" />
+                        </button>
+                    )}
+                </div>
             </div>
 
             <p className="display__grid-time">{song.length}</p>

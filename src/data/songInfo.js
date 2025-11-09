@@ -6,6 +6,7 @@ import paramoreArt from "../assets/paramore.webp";
 import fooFightersArt2 from "../assets/foo-there-nothing.jpg";
 import queensStoneAgeArt from "../assets/queens-stone-age.jpeg";
 import coldplayArt from "../assets/a_rush.jpg";
+import oasisArt from "../assets/oasis.jpg";
 
 export const songData = [
     {
@@ -22,7 +23,7 @@ export const songData = [
         id: 2,
         album: "Nirvana",
         artist: "Nirvana",
-        title: "Smelles Like Teen Spirit",
+        title: "Smells Like Teen Spirit",
         length: "5:01",
         albumArt: nirvanaArt,
         alt: "Imagen de Nirvana",
@@ -106,5 +107,15 @@ export const songData = [
         length: "5:07",
         albumArt: coldplayArt,
         alt: "Imagen de Coldplay",
+    },
+
+    {
+        id: 11,
+        album: "(What's the Story) Morning Glory?",
+        artist: "Oasis",
+        title: "Wonderwall",
+        length: "4:19",
+        albumArt: oasisArt,
+        alt: "Imagen de Oasis",
     },
 ];

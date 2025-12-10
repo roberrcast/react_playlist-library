@@ -4,11 +4,13 @@ import Library from "../Library";
 import "./Display.scss";
 
 const Display = ({
-    songsToDisplay,
     librarySongs,
-    searchQuery,
+    queryFromURL,
     onAddToLibrary,
     onDeleteFromLibrary,
+    albums,
+    isLoading,
+    error,
 }) => {
     const [defaultSong, setSong] = useState(null);
 
@@ -16,7 +18,7 @@ const Display = ({
         setSong(song);
     };
 
-    const activeList = searchQuery ? songsToDisplay : librarySongs;
+    const activeList = queryFromURL ? albums : librarySongs;
 
     return (
         <>
@@ -52,42 +54,25 @@ const Display = ({
                     </section>
 
                     <section className="display__playlist">
-                        {activeList.length > 0 ? (
-                            <div className="display__grid">
-                                <h4 className="display__grid-item">song</h4>
-                                <h4 className="display__grid-item">artist</h4>
-                                <h4 className="display__grid-item">album</h4>
-                                <h4 className="display__grid-item">time</h4>
-
-                                {searchQuery ? (
-                                    <SearchResults
-                                        songsToDisplay={songsToDisplay}
-                                        librarySongs={librarySongs}
-                                        onSongClick={handleSongClick}
-                                        onAddToLibrary={onAddToLibrary}
-                                    />
-                                ) : (
-                                    <Library
-                                        librarySongs={librarySongs}
-                                        onSongClick={handleSongClick}
-                                        onDeleteFromLibrary={
-                                            onDeleteFromLibrary
-                                        }
-                                    />
-                                )}
-                            </div>
+                        {isLoading ? (
+                            <p className="display__playlist-messages">
+                                Cargando...
+                            </p>
+                        ) : error ? (
+                            <p className="display__playlist-messages">
+                                {error}
+                            </p>
+                        ) : albums && albums.length > 0 ? (
+                            <SearchResults
+                                albums={albums}
+                                librarySongs={librarySongs}
+                                onSongClick={handleSongClick}
+                                onAddToLibrary={onAddToLibrary}
+                            />
                         ) : (
-                            <div className="display__playlist-messages">
-                                {searchQuery ? (
-                                    <p className="display__playlist-messages--no-results">
-                                        No se encontraron resultados
-                                    </p>
-                                ) : (
-                                    <p className="display__playlist-messages--empty">
-                                        Su biblioteca está vacía
-                                    </p>
-                                )}
-                            </div>
+                            <p className="display__no-results">
+                                No se encontraron resultados
+                            </p>
                         )}
                     </section>
                 </div>

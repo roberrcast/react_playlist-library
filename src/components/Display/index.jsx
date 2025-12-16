@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import SearchResults from "../SearchResults";
-import Library from "../Library";
+import SongDetails from "../SongDetails";
+/* import Library from "../Library"; */
 import "./Display.scss";
 
 const Display = ({
@@ -13,6 +15,12 @@ const Display = ({
     error,
 }) => {
     const [defaultSong, setSong] = useState(null);
+    const [searchParams] = useSearchParams();
+
+    const artist = searchParams.get("artist");
+    const trackName = searchParams.get("track");
+    const albumName = searchParams.get("albumName");
+    const albumArt = searchParams.get("albumArt");
 
     const handleSongClick = (song) => {
         setSong(song);
@@ -47,7 +55,7 @@ const Display = ({
                         ) : (
                             <div className="display__showcase-placeholder">
                                 <p className="display__showcase-message">
-                                    Seleccione una canción
+                                    Seleccione un álbum o canción
                                 </p>
                             </div>
                         )}
@@ -62,6 +70,13 @@ const Display = ({
                             <p className="display__playlist-messages">
                                 {error}
                             </p>
+                        ) : artist && trackName ? (
+                            <SongDetails
+                                artist={artist}
+                                songName={trackName}
+                                albumName={albumName}
+                                albumArt={albumArt}
+                            />
                         ) : albums && albums.length > 0 ? (
                             <SearchResults
                                 albums={albums}

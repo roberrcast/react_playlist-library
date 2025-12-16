@@ -1,18 +1,25 @@
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import Song from "../Song/";
 import "../Song/Song.scss";
 import useFetchTracks from "../../hooks/useFetchTracks.js";
 
 function SearchResults({ albums, librarySongs, onSongClick, onAddToLibrary }) {
-    const [selectedAlbum, setSelectedAlbum] = useState(null);
+    const [searchParams, setSearchParams] = useSearchParams();
 
-    const { tracks, isLoading, error } = useFetchTracks(
-        selectedAlbum ? selectedAlbum.idAlbum : null,
-    );
+    const currentQuery = searchParams.get("q");
+    const selectedAlbumId = searchParams.get("album");
+    const albumName = searchParams.get("albumName");
+    const albumArt = searchParams.get("albumArt");
+
+    // const selectedAlbum =
+    //     albums && albums.find((a) => a.idAlbum === selectedAlbumId);
+
+    const { tracks, isLoading, error } = useFetchTracks(selectedAlbumId);
 
     return (
         <>
-            {selectedAlbum === null ? (
+            {selectedAlbumId === null ? (
                 <div className="display__album-grid">
                     {albums.map((album) => {
                         const {
@@ -27,7 +34,14 @@ function SearchResults({ albums, librarySongs, onSongClick, onAddToLibrary }) {
                             <div
                                 className="display__album-item"
                                 key={idAlbum}
-                                onClick={() => setSelectedAlbum(album)}
+                                onClick={() =>
+                                    setSearchParams({
+                                        q: currentQuery,
+                                        album: album.idAlbum,
+                                        albumName: album.strAlbum,
+                                        albumArt: album.strAlbumThumb,
+                                    })
+                                }
                             >
                                 <div className="display__album-thumb">
                                     <img
@@ -56,7 +70,7 @@ function SearchResults({ albums, librarySongs, onSongClick, onAddToLibrary }) {
                     <button
                         className="display__back-btn"
                         type="button"
-                        onClick={() => setSelectedAlbum(null)}
+                        onClick={() => setSearchParams({ q: currentQuery })}
                     >
                         Atrás
                     </button>
@@ -81,9 +95,7 @@ function SearchResults({ albums, librarySongs, onSongClick, onAddToLibrary }) {
                                     title: song.strTrack,
                                     artist: song.strArtist,
                                     album: song.strAlbum,
-                                    albumArt:
-                                        song.strTrackThumb ||
-                                        selectedAlbum.strAlbumThumb,
+                                    albumArt: song.strTrackThumb || albumArt,
                                     length: song.intDuration,
                                 };
 
@@ -96,9 +108,17 @@ function SearchResults({ albums, librarySongs, onSongClick, onAddToLibrary }) {
                                     <div
                                         className="display__grid-row"
                                         key={normalizedSong.id}
-                                        onClick={() =>
-                                            onSongClick(normalizedSong)
-                                        }
+                                        onClick={() => {
+                                            onSongClick(normalizedSong);
+                                            setSearchParams({
+                                                q: currentQuery,
+                                                album: selectedAlbumId,
+                                                artist: normalizedSong.artist,
+                                                track: normalizedSong.title,
+                                                albumName: albumName,
+                                                albumArt: albumArt,
+                                            });
+                                        }}
                                     >
                                         <Song
                                             song={normalizedSong}

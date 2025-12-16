@@ -30,7 +30,7 @@ function App() {
     const handleSearchQuery = (rawQuery) => {
         const formattedQuery = formatSearchQuery(rawQuery);
 
-        navigate(`/search-results?=${formattedQuery}`);
+        navigate(`/search-results?q=${formattedQuery}`);
     };
 
     //Función para añadir canciones a la librería del usuario

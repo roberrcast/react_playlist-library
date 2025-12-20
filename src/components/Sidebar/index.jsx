@@ -4,7 +4,7 @@ import List from "../List";
 import "./Sidebar.scss";
 import { FaBars } from "react-icons/fa";
 import { FaTimes } from "react-icons/fa";
-import { formatSearchQuery } from "../../utilsJS/utils.js";
+/* import { formatSearchQuery } from "../../utilsJS/utils.js"; */
 
 function Sidebar({ onSearch, onShowLibrary, searchQuery }) {
     const [isOpen, setIsOpen] = useState(false);
@@ -25,7 +25,9 @@ function Sidebar({ onSearch, onShowLibrary, searchQuery }) {
     //Función para evitar el default en form
     const handleFormSubmit = (event) => {
         event.preventDefault();
-        onSearch(inputValue);
+        if (inputValue.trim()) {
+            onSearch(inputValue);
+        }
     };
 
     const sidebarClassName = `sidebar ${isOpen ? "sidebar--is-open" : ""}`;

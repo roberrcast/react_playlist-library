@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import Song from "../Song/";
-import "../Song/Song.scss";
 import useFetchTracks from "../../hooks/useFetchTracks.js";
+import "../SearchResults/SearchResults.scss";
 
 function SearchResults({ albums, librarySongs, onSongClick, onAddToLibrary }) {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -11,9 +11,6 @@ function SearchResults({ albums, librarySongs, onSongClick, onAddToLibrary }) {
     const selectedAlbumId = searchParams.get("album");
     const albumName = searchParams.get("albumName");
     const albumArt = searchParams.get("albumArt");
-
-    // const selectedAlbum =
-    //     albums && albums.find((a) => a.idAlbum === selectedAlbumId);
 
     const { tracks, isLoading, error } = useFetchTracks(selectedAlbumId);
 

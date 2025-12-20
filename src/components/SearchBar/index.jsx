@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
+import "../SearchBar/Searchbar.scss";
 
 function SearchBar({ onSearch }) {
     const [inputValue, setInputValue] = useState("");
@@ -10,7 +11,9 @@ function SearchBar({ onSearch }) {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        onSearch(inputValue);
+        if (inputValue.trim()) {
+            onSearch(inputValue);
+        }
     };
 
     return (

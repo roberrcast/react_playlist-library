@@ -15,11 +15,12 @@ $svgSearchColor: hsla(0, 0%, 29.8%, 1);
 $defaultPadding: 0 25px;
 $dryRed: #6b312d;
 $redHover: #bb453a;
+$searchBarFocusColor: #a6e2a2;
 
 //Mixins
 
 //Mixin para el focus del searchbar
-@mixin focusGlow($color: #a6e2a2, $blur: 10px, $spread: 3px) {
+@mixin focusGlow($color: $searchBarFocusColor, $blur: 10px, $spread: 3px) {
     &:focus {
         outline: none;
         box-shadow: 0 0 $blur $spread $color;

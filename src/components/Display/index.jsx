@@ -1,22 +1,34 @@
 import React, { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import SearchResults from "../SearchResults";
+import SongDetails from "../SongDetails";
+import Breadcrumb from "../Breadcrumb";
 import Library from "../Library";
 import "./Display.scss";
 
 const Display = ({
-    songsToDisplay,
     librarySongs,
-    searchQuery,
+    queryFromURL,
     onAddToLibrary,
     onDeleteFromLibrary,
+    albums,
+    isLoading,
+    error,
+    viewType = "search",
 }) => {
     const [defaultSong, setSong] = useState(null);
+    const [searchParams] = useSearchParams();
+
+    const trackId = searchParams.get("trackId");
+    const trackName = searchParams.get("track");
+    const albumName = searchParams.get("albumName");
+    const albumArt = searchParams.get("albumArt");
 
     const handleSongClick = (song) => {
         setSong(song);
     };
 
-    const activeList = searchQuery ? songsToDisplay : librarySongs;
+    const activeList = queryFromURL ? albums : librarySongs;
 
     return (
         <>
@@ -45,49 +57,49 @@ const Display = ({
                         ) : (
                             <div className="display__showcase-placeholder">
                                 <p className="display__showcase-message">
-                                    Seleccione una canción
+                                    Seleccione un álbum o canción
                                 </p>
                             </div>
                         )}
                     </section>
 
-                    <section className="display__playlist">
-                        {activeList.length > 0 ? (
-                            <div className="display__grid">
-                                <h4 className="display__grid-item">song</h4>
-                                <h4 className="display__grid-item">artist</h4>
-                                <h4 className="display__grid-item">album</h4>
-                                <h4 className="display__grid-item">time</h4>
+                    <section className="display__breadcrumb">
+                        <Breadcrumb />
+                    </section>
 
-                                {searchQuery ? (
-                                    <SearchResults
-                                        songsToDisplay={songsToDisplay}
-                                        librarySongs={librarySongs}
-                                        onSongClick={handleSongClick}
-                                        onAddToLibrary={onAddToLibrary}
-                                    />
-                                ) : (
-                                    <Library
-                                        librarySongs={librarySongs}
-                                        onSongClick={handleSongClick}
-                                        onDeleteFromLibrary={
-                                            onDeleteFromLibrary
-                                        }
-                                    />
-                                )}
-                            </div>
+                    <section className="display__playlist">
+                        {isLoading ? (
+                            <p className="display__playlist-messages">
+                                Cargando...
+                            </p>
+                        ) : error ? (
+                            <p className="display__playlist-messages">
+                                {error}
+                            </p>
+                        ) : trackId ? (
+                            <SongDetails
+                                trackId={trackId}
+                                songName={trackName}
+                                albumName={albumName}
+                                albumArt={albumArt}
+                            />
+                        ) : viewType === "library" ? (
+                            <Library
+                                librarySongs={librarySongs}
+                                onSongClick={handleSongClick}
+                                onDeleteFromLibrary={onDeleteFromLibrary}
+                            />
+                        ) : albums && albums.length > 0 ? (
+                            <SearchResults
+                                albums={albums}
+                                librarySongs={librarySongs}
+                                onSongClick={handleSongClick}
+                                onAddToLibrary={onAddToLibrary}
+                            />
                         ) : (
-                            <div className="display__playlist-messages">
-                                {searchQuery ? (
-                                    <p className="display__playlist-messages--no-results">
-                                        No se encontraron resultados
-                                    </p>
-                                ) : (
-                                    <p className="display__playlist-messages--empty">
-                                        Su biblioteca está vacía
-                                    </p>
-                                )}
-                            </div>
+                            <p className="display__no-results">
+                                No se encontraron resultados
+                            </p>
                         )}
                     </section>
                 </div>

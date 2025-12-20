@@ -1,15 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
 import List from "../List";
 import "./Sidebar.scss";
 import { FaBars } from "react-icons/fa";
 import { FaTimes } from "react-icons/fa";
+/* import { formatSearchQuery } from "../../utilsJS/utils.js"; */
 
-function Sidebar({ onSearch, onShowLibrary }) {
+function Sidebar({ onSearch, onShowLibrary, searchQuery }) {
     const [isOpen, setIsOpen] = useState(false);
 
+    //Función para hacer toggle al sidebar en mobile
     const toggle = () => {
         setIsOpen(!isOpen);
+    };
+
+    //Estado para el input value del search bar
+    const [inputValue, setInputValue] = useState(searchQuery);
+
+    //Función para el cambio de estado del input value
+    useEffect(() => {
+        setInputValue(searchQuery);
+    }, [searchQuery]);
+
+    //Función para evitar el default en form
+    const handleFormSubmit = (event) => {
+        event.preventDefault();
+        if (inputValue.trim()) {
+            onSearch(inputValue);
+        }
     };
 
     const sidebarClassName = `sidebar ${isOpen ? "sidebar--is-open" : ""}`;
@@ -25,7 +43,7 @@ function Sidebar({ onSearch, onShowLibrary }) {
                         <form
                             action=""
                             className="sidebar__form"
-                            onSubmit={(event) => event.preventDefault()}
+                            onSubmit={handleFormSubmit}
                         >
                             <input
                                 type="search"
@@ -33,11 +51,12 @@ function Sidebar({ onSearch, onShowLibrary }) {
                                 className="sidebar__input"
                                 placeholder="Búsqueda"
                                 autoComplete={"off"}
+                                value={inputValue}
                                 onChange={(event) =>
-                                    onSearch(event.target.value)
+                                    setInputValue(event.target.value)
                                 }
                             />
-                            <button type="button" className="sidebar__button">
+                            <button type="submit" className="sidebar__button">
                                 <FaSearch />
                             </button>
 

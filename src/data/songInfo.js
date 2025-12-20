@@ -12,7 +12,7 @@ export const songData = [
     {
         id: 1,
         album: "One by One",
-        artist: "Foo-Fighters",
+        artist: "Foo Fighters",
         title: "All my life",
         length: "4:23",
         albumArt: fooFightersArt,
@@ -42,7 +42,7 @@ export const songData = [
     {
         id: 4,
         album: "One by One",
-        artist: "Foo-Fighters",
+        artist: "Foo Fighters",
         title: "Times Likes These",
         length: "4:25",
         albumArt: fooFightersArt,
@@ -72,7 +72,7 @@ export const songData = [
     {
         id: 7,
         album: "There is nothing left to lose",
-        artist: "Foo-Fighters",
+        artist: "Foo Fighters",
         title: "Learn to Fly",
         length: "3:55",
         albumArt: fooFightersArt2,

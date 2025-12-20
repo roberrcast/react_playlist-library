@@ -1,4 +1,5 @@
 import React from "react";
+import { formatDuration } from "../../utilsJS/utils.js";
 import "./Song.scss";
 
 //Botones para agregar, borrar y tick
@@ -71,7 +72,7 @@ const Song = ({ song, onAddToLibrary, onDeleteFromLibrary, isInLibrary }) => {
                 </div>
             </div>
 
-            <p className="display__grid-time">{song.length}</p>
+            <p className="display__grid-time">{formatDuration(song.length)}</p>
         </>
     );
 };

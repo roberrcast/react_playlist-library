@@ -67,13 +67,6 @@ function SearchResults({ albums, librarySongs, onSongClick, onAddToLibrary }) {
                 </div>
             ) : (
                 <>
-                    <button
-                        className="display__back-btn"
-                        type="button"
-                        onClick={() => setSearchParams({ q: currentQuery })}
-                    >
-                        Atrás
-                    </button>
                     {isLoading && (
                         <p className="display__loading">Cargando canciones.</p>
                     )}
@@ -113,10 +106,11 @@ function SearchResults({ albums, librarySongs, onSongClick, onAddToLibrary }) {
                                             setSearchParams({
                                                 q: currentQuery,
                                                 album: selectedAlbumId,
-                                                artist: normalizedSong.artist,
+                                                /* artist: normalizedSong.artist, */
                                                 track: normalizedSong.title,
                                                 albumName: albumName,
                                                 albumArt: albumArt,
+                                                trackId: normalizedSong.id,
                                             });
                                         }}
                                     >

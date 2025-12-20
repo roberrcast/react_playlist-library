@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import SearchResults from "../SearchResults";
 import SongDetails from "../SongDetails";
-/* import Library from "../Library"; */
+import Breadcrumb from "../Breadcrumb";
+import Library from "../Library";
 import "./Display.scss";
 
 const Display = ({
@@ -13,11 +14,12 @@ const Display = ({
     albums,
     isLoading,
     error,
+    viewType = "search",
 }) => {
     const [defaultSong, setSong] = useState(null);
     const [searchParams] = useSearchParams();
 
-    const artist = searchParams.get("artist");
+    const trackId = searchParams.get("trackId");
     const trackName = searchParams.get("track");
     const albumName = searchParams.get("albumName");
     const albumArt = searchParams.get("albumArt");
@@ -61,6 +63,10 @@ const Display = ({
                         )}
                     </section>
 
+                    <section className="display__breadcrumb">
+                        <Breadcrumb />
+                    </section>
+
                     <section className="display__playlist">
                         {isLoading ? (
                             <p className="display__playlist-messages">
@@ -70,12 +76,18 @@ const Display = ({
                             <p className="display__playlist-messages">
                                 {error}
                             </p>
-                        ) : artist && trackName ? (
+                        ) : trackId ? (
                             <SongDetails
-                                artist={artist}
+                                trackId={trackId}
                                 songName={trackName}
                                 albumName={albumName}
                                 albumArt={albumArt}
+                            />
+                        ) : viewType === "library" ? (
+                            <Library
+                                librarySongs={librarySongs}
+                                onSongClick={handleSongClick}
+                                onDeleteFromLibrary={onDeleteFromLibrary}
                             />
                         ) : albums && albums.length > 0 ? (
                             <SearchResults

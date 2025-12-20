@@ -28,9 +28,7 @@ function App() {
 
     //Función para la búsqueda de canciones en Sidebar
     const handleSearchQuery = (rawQuery) => {
-        const formattedQuery = formatSearchQuery(rawQuery);
-
-        navigate(`/search-results?q=${formattedQuery}`);
+        navigate(`/search-results?q=${rawQuery}`);
     };
 
     //Función para añadir canciones a la librería del usuario
@@ -54,9 +52,9 @@ function App() {
     };
 
     //Función para limpiar el search query del searchbox y mostrar la biblioteca del usuario cuando se hace click al nombre de la playlist en Sidebar ("Playlist 1")
-    // const handleShowLibrary = () => {
-    //     navigate("/library");
-    // };
+    const handleShowLibrary = () => {
+        navigate("/library");
+    };
 
     //Variable para decirle a useEffect que es el primer render y que no haga el console.log
     const isInitialMount = useRef(true);
@@ -87,15 +85,41 @@ function App() {
                             <>
                                 <Sidebar
                                     onSearch={handleSearchQuery}
-                                    /* onShowLibrary={handleShowLibrary} */
+                                    onShowLibrary={handleShowLibrary}
                                     searchQuery={queryFromURL}
                                 />
                                 <Display
+                                    viewType="search"
                                     albums={albums}
                                     isLoading={isLoading}
                                     error={error}
                                     librarySongs={librarySongs}
                                     searchQuery={queryFromURL}
+                                    onAddToLibrary={handleAddToLibrary}
+                                    onDeleteFromLibrary={
+                                        handleDeleteFromLibrary
+                                    }
+                                />
+                            </>
+                        }
+                    />
+
+                    <Route
+                        path="/library"
+                        element={
+                            <>
+                                <Sidebar
+                                    onSearch={handleSearchQuery}
+                                    onShowLibrary={handleShowLibrary}
+                                    searchQuery={queryFromURL}
+                                />
+
+                                <Display
+                                    viewType="library"
+                                    albums={albums}
+                                    isLoading={isLoading}
+                                    error={error}
+                                    librarySongs={librarySongs}
                                     onAddToLibrary={handleAddToLibrary}
                                     onDeleteFromLibrary={
                                         handleDeleteFromLibrary

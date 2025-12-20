@@ -25,8 +25,7 @@ function Sidebar({ onSearch, onShowLibrary, searchQuery }) {
     //Función para evitar el default en form
     const handleFormSubmit = (event) => {
         event.preventDefault();
-        const formattedQuery = formatSearchQuery(inputValue);
-        onSearch(formattedQuery);
+        onSearch(inputValue);
     };
 
     const sidebarClassName = `sidebar ${isOpen ? "sidebar--is-open" : ""}`;
@@ -82,5 +81,3 @@ function Sidebar({ onSearch, onShowLibrary, searchQuery }) {
 }
 
 export default Sidebar;
-
-//Begin by designing a component that only shows the band info in Display, another for specific tracks, albums etc.

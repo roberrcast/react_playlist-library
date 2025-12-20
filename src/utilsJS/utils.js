@@ -21,3 +21,23 @@ export const formatSearchQuery = (str) => {
     //Por último hacemos todas minúsculas
     return joinStr.toLowerCase();
 };
+
+export const formatDuration = (miliseconds) => {
+    if (isNaN(miliseconds) || miliseconds < 0) {
+        return "0:00";
+    }
+
+    //Conversión de ms a segundos
+    const totalSeconds = Math.floor(miliseconds / 1000);
+
+    //Calcular mins
+    const minutes = Math.floor(totalSeconds / 60);
+
+    //Calcular segundos restantes
+    const seconds = totalSeconds % 60;
+
+    //Dos dígitos después de los mins
+    const paddedSeconds = String(seconds).padStart(2, "0");
+
+    return `${minutes}:${paddedSeconds}`;
+};

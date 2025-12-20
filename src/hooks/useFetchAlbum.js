@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { formatSearchQuery } from "../utilsJS/utils";
 
-const useFetchAlbum = (artistName) => {
+const useFetchAlbum = (query) => {
     const [albumState, setAlbumState] = useState({
         albums: [],
         isLoading: true,
@@ -9,11 +10,12 @@ const useFetchAlbum = (artistName) => {
     });
 
     useEffect(() => {
-        if (artistName) {
+        if (query) {
             const fetchAlbums = async () => {
+                const formattedQuery = formatSearchQuery(query);
                 try {
                     const response = await axios.get(
-                        `/api/v1/json/123/searchalbum.php?s=${artistName}`,
+                        `/api/v1/json/123/searchalbum.php?s=${formattedQuery}`,
                     );
                     console.log(response);
                     setAlbumState({
@@ -31,7 +33,7 @@ const useFetchAlbum = (artistName) => {
             };
             fetchAlbums();
         }
-    }, [artistName]);
+    }, [query]);
 
     return albumState;
 };

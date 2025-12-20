@@ -2,8 +2,8 @@ import React from "react";
 import { useSearchParams } from "react-router-dom";
 import useFetchSongDetails from "../../hooks/useFetchSongDetails";
 
-const SongDetails = ({ artist, songName, albumName, albumArt }) => {
-    const { details, isLoading, error } = useFetchSongDetails(artist, songName);
+const SongDetails = ({ trackId }) => {
+    const { details, isLoading, error } = useFetchSongDetails(trackId);
 
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -24,36 +24,6 @@ const SongDetails = ({ artist, songName, albumName, albumArt }) => {
 
     return (
         <>
-            <nav className="display__breadcrumb">
-                <span
-                    className="display__breadcrumb-item"
-                    onClick={() => setSearchParams({ q: currentQuery })}
-                >
-                    {currentQuery}
-                </span>
-
-                <span className="display__breadcrumb-separator">/</span>
-
-                <span
-                    className="display__breadcrumb-item"
-                    onClick={() =>
-                        setSearchParams({
-                            q: currentQuery,
-                            album: albumId,
-                            albumName: albumName,
-                            albumArt: albumArt,
-                        })
-                    }
-                >
-                    {albumName}
-                </span>
-
-                <span className="display__breadcrumb-separator">/</span>
-
-                <span className="display__breadcrumb-item breadcrumb__item--active">
-                    {songName}
-                </span>
-            </nav>
             {details && details.length > 0 ? (
                 details.map((detail) => (
                     <section className="display__details" key={detail.idTrack}>

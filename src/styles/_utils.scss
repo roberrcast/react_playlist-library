@@ -87,3 +87,9 @@ $searchBarFocusColor: #a6e2a2;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
 }
+
+@mixin gridLayout($display, $padd1, $padd2) {
+    display: $display;
+    padding: $padd1 $padd2;
+    box-sizing: border-box;
+}

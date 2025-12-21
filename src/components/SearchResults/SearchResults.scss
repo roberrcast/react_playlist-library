@@ -1,3 +1,9 @@
 @use "../../styles/utils";
 @use "../../styles/fluid-design";
 @use "../../styles/query";
+
+.display {
+    &__album-grid {
+        display: grid;
+    }
+}

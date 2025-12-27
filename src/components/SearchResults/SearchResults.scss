@@ -25,7 +25,8 @@
             @media (hover: hover) {
                 &:hover {
                     cursor: pointer;
-                    transform: translateY(-1rem);
+                    z-index: 10;
+                    /* transform: translateY(-1rem); */
                 }
             }
 
@@ -46,6 +47,11 @@
 
         &-thumb {
             width: 300px;
+            transition: transform 0.2s ease-in-out;
+
+            .display__album-item:hover & {
+                transform: translateY(-1rem); //This added
+            }
 
             @include query.respond("1320px") {
                 width: 250px;

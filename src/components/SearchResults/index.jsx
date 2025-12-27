@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import Song from "../Song/";
 import useFetchTracks from "../../hooks/useFetchTracks.js";
@@ -8,6 +8,8 @@ function SearchResults({ albums, librarySongs, onSongClick, onAddToLibrary }) {
     const [searchParams, setSearchParams] = useSearchParams();
     const gridRef = useRef(null);
 
+    const [hoveredIndex, setHoveredIndex] = useState(null);
+
     const currentQuery = searchParams.get("q");
     const selectedAlbumId = searchParams.get("album");
     const albumName = searchParams.get("albumName");
@@ -16,48 +18,30 @@ function SearchResults({ albums, librarySongs, onSongClick, onAddToLibrary }) {
     const { tracks, isLoading, error } = useFetchTracks(selectedAlbumId);
 
     /* ----- funciones para el efecto hover de los álbumes --------- */
-    const handleMouseEnter = (e) => {
+    useEffect(() => {
         const grid = gridRef.current;
         if (!grid) return;
 
         const allItems = Array.from(grid.children);
 
-        allItems.forEach((item) => item.classList.remove("shifted"));
-
-        const hoveredItem = e.currentTarget;
-        const hoveredIndex = allItems.indexOf(hoveredItem);
-        const nextItem = allItems[hoveredIndex + 1];
-
-        if (nextItem) {
-            const hoveredTop = hoveredItem.getBoundingClientRect().top;
-            const nextItemTop = nextItem.getBoundingClientRect().top;
-
-            if (Math.abs(hoveredTop - nextItemTop) < 1) {
-                nextItem.classList.add("shifted");
-            }
-        }
-    };
-
-    const handleMouseLeave = (e) => {
-        const grid = gridRef.current;
-        if (!grid) return;
-
-        const relatedTarget = e.relatedTarget;
-
-        //Revisamos si todavía seguimos dentro del grid
-        if (
-            relatedTarget &&
-            relatedTarget instanceof Node &&
-            grid.contains(relatedTarget)
-        ) {
-            return; //Si se hace hover hacia otro elemento no removemos la clase
+        if (hoveredIndex === null) {
+            allItems.forEach((item) => item.classList.remove("shifted"));
+            return;
         }
 
-        //Sólo removemos clases si en realidad se ha abandonado el grid
-        Array.from(grid.children).forEach((child) => {
-            child.classList.remove("shifted");
+        const hoveredItem = allItems[hoveredIndex];
+        if (!hoveredItem) return;
+
+        const hoveredTop = hoveredItem.getBoundingClientRect().top;
+
+        allItems.forEach((item, index) => {
+            const shouldBeShifted =
+                index > hoveredIndex &&
+                Math.abs(item.getBoundingClientRect().top - hoveredTop) < 1;
+
+            item.classList.toggle("shifted", shouldBeShifted);
         });
-    };
+    }, [hoveredIndex]);
     /*---------- final de las funciones ------------*/
 
     return (
@@ -66,9 +50,9 @@ function SearchResults({ albums, librarySongs, onSongClick, onAddToLibrary }) {
                 <div
                     className="display__album-grid"
                     ref={gridRef}
-                    onMouseLeave={handleMouseLeave}
+                    onMouseLeave={() => setHoveredIndex(null)}
                 >
-                    {albums.map((album) => {
+                    {albums.map((album, index) => {
                         const {
                             idAlbum,
                             strAlbumThumb,
@@ -81,7 +65,7 @@ function SearchResults({ albums, librarySongs, onSongClick, onAddToLibrary }) {
                             <div
                                 className="display__album-item"
                                 key={idAlbum}
-                                onMouseEnter={handleMouseEnter}
+                                onMouseEnter={() => setHoveredIndex(index)}
                                 onClick={() =>
                                     setSearchParams({
                                         q: currentQuery,

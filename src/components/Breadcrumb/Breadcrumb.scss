@@ -1,0 +1,9 @@
+@use "../../styles/utils";
+@use "../../styles/fluid-design";
+@use "../../styles/query";
+
+.display {
+    &__breadcrumb-nav {
+        padding: 30px 25px 0 25px;
+    }
+}

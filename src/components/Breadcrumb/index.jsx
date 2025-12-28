@@ -1,5 +1,6 @@
 import React from "react";
 import { useSearchParams } from "react-router-dom";
+import "./Breadcrumb.scss";
 
 const Breadcrumb = () => {
     const [searchParams, setSearchParams] = useSearchParams();

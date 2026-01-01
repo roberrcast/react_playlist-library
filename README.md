@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+React Album Search & Playlist App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+  This is a web application built with React that allows users to search for music albums by their favorite artists. Users can browse search results, view track listings
+  for a specific album, and see details for individual songs, including embedded music videos. The application features a dynamic and interactive user interface with
+  several custom-styled components and animations.
 
-## Available Scripts
+  Technologies Used
 
-In the project directory, you can run:
+   * React: Core library for building the user interface, utilizing hooks like useState, useEffect, and useRef for state management and side effects.
+   * React Router: For handling client-side routing and managing navigation state in the URL with useSearchParams.
+   * Sass (SCSS): For advanced, organized, and modular styling.
+   * Axios: For making asynchronous HTTP requests to fetch music data from an external API.
 
-### `npm start`
+  Key Features & Implementation Highlights
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+   * Artist-Based Album Search: The main feature allows users to fetch and display a list of albums by searching for an artist's name.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+   * Dynamic Breadcrumb Navigation: A custom Breadcrumb component was built and refactored to be fully dynamic. It updates based on the user's navigation path (e.g., Search
+     > Album > Track) and uses conditional styling to distinguish between active (current page) and ancestor links (bolded).
 
-### `npm test`
+   * Complex & Robust Album Hover Effect: A significant amount of effort went into creating a hover animation for the album grid:
+       * When an album is hovered, it lifts up slightly (translateY).
+       * All subsequent albums on the same visual row shift to the right (translateX) to create a "peek-a-boo" effect.
+       * This was implemented using a robust useState and useEffect approach to reliably manage hover state and avoid common browser rendering bugs related to CSS
+         transitions, which were discovered and fixed during development.
+       * Conflicting CSS transform properties were diagnosed and resolved by applying animations to separate nested elements.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+   * Responsive & Stylized Components:
+       * Album Grid: Styled with a "stacked vinyl" effect using object-fit to ensure all album art is consistently sized and displayed without distortion.
+       * Search Bar: Custom-styled search input, including styling for the placeholder text using the ::placeholder pseudo-element.
+       * Song Details: Fetches and displays song-specific info, including an embedded iframe for music videos, which is dynamically centered.
 
-### `npm run build`
+   * Bug Fixes & Code Quality:
+       * Fixed bugs related to incorrect SCSS @use syntax.
+       * Corrected multiple typos in React component class names and logic.
+       * Refactored components to use more scalable and idiomatic React patterns (e.g., building UI from arrays of data).
+       * Added logic to prevent search submissions with empty queries.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  Available Scripts
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+  In the project directory, you can run:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  npm install
 
-### `npm run eject`
+  Installs all the required dependencies for the project.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+  npm start
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+  Runs the app in development mode.\
+  Open http://localhost:3000 (http://localhost:3000) to view it in your browser.

@@ -13,7 +13,11 @@
         display: flex;
         width: 100%;
         justify-content: center;
-        gap: fluid-design.fluid(4rem, 25rem, 28.409rem, 109.091rem);
+        gap: fluid-design.fluid(3rem, 25rem, 25rem, 109.091rem);
+
+        // @include query.respond("380px") {
+        //     padding: 0px;
+        // }
 
         li {
             list-style: none;

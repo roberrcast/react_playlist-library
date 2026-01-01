@@ -6,4 +6,32 @@
     &__breadcrumb-nav {
         padding: 30px 25px 0 25px;
     }
+
+    &__breadcrumb-item {
+        font-weight: 600;
+        transition: color 0.2s ease-in-out;
+        font-size: fluid-design.fluid(0.8rem, 1rem, 24rem, 113rem);
+
+        @media (hover: hover) {
+            &:hover {
+                cursor: pointer;
+                color: utils.$coolBlue;
+            }
+        }
+
+        &--active {
+            font-weight: unset;
+
+            @media (hover: hover) {
+                &:hover {
+                    color: inherit;
+                    cursor: default;
+                }
+            }
+        }
+    }
+
+    &__breadcrumb-separator {
+        margin: 0 0.5rem;
+    }
 }

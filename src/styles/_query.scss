@@ -22,4 +22,16 @@
             @content;
         }
     }
+
+    @if ($breakpoint == "400px") {
+        @media (max-width: 400px) {
+            @content;
+        }
+    }
+
+    @if ($breakpoint == "380px") {
+        @media (max-width: 380px) {
+            @content;
+        }
+    }
 }

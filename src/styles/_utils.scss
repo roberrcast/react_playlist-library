@@ -79,11 +79,22 @@ $searchBarFocusColor: #a6e2a2;
     @include hover;
 }
 
-//Elipsis para el texto del playlist
+//Elipsis para el texto de la lista de tracks
 @mixin text-ellipsis-style {
     font-size: fluid-design.fluid(0.7rem, 1rem, 22.656rem, 109.091rem);
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
+}
+
+@mixin gridLayout($display, $padd1, $padd2) {
+    display: $display;
+    padding: $padd1 $padd2;
+    box-sizing: border-box;
+}
+
+@mixin textStyle($width, $textAlign) {
+    width: $width;
+    text-align: $textAlign;
 }

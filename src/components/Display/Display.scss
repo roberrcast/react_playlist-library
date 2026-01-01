@@ -6,7 +6,7 @@
     width: 100%;
 
     &__inner {
-        padding: 0 25px;
+        padding: 0 fluid-design.fluid(0px, 25px, 375px, 1800px);
 
         @include query.respond("400px") {
             padding: 0px;
@@ -26,6 +26,15 @@
 
         @include query.respond("500px") {
             padding: 0px;
+        }
+
+        @include query.respond("400px") {
+            align-items: start;
+            padding: 25px;
+        }
+
+        &-message {
+            font-size: fluid-design.fluid(0.9rem, 1rem, 25rem, 113rem);
         }
     }
 
@@ -60,6 +69,10 @@
     &__playlist {
         width: 100%;
         margin-top: 4rem;
+
+        @include query.respond("400px") {
+            width: 95%;
+        }
 
         &-messages {
             display: flex;
@@ -189,6 +202,10 @@
                 display: flex;
                 justify-content: center;
                 width: 100%;
+            }
+
+            @include query.respond("400px") {
+                justify-content: start;
             }
         }
 

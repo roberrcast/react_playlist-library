@@ -1,0 +1,35 @@
+@use "../../styles/utils";
+@use "../../styles/fluid-design";
+@use "../../styles/query";
+
+.display {
+    &__details {
+        box-sizing: border-box;
+        padding: 0 fluid-design.fluid(0px, 25px, 375px, 1800px);
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    &__genre {
+        @include utils.textStyle(100%, left);
+
+        span {
+            font-weight: 500;
+        }
+    }
+
+    &__description {
+        @include utils.textStyle(100%, left);
+        line-height: 1.5rem;
+        font-size: fluid-design.fluid(0.9rem, 1rem, 28rem, 113rem);
+    }
+
+    &__music-video {
+        width: fluid-design.fluid(300px, 900px, 460px, 1800px);
+        height: fluid-design.fluid(150px, 750px, 460px, 1800px);
+    }
+}

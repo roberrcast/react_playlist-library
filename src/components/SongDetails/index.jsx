@@ -1,6 +1,7 @@
 import React from "react";
 import { useSearchParams } from "react-router-dom";
 import useFetchSongDetails from "../../hooks/useFetchSongDetails";
+import "../SongDetails/SongDetails.scss";
 
 const SongDetails = ({ trackId }) => {
     const { details, isLoading, error } = useFetchSongDetails(trackId);
@@ -9,10 +10,6 @@ const SongDetails = ({ trackId }) => {
 
     const currentQuery = searchParams.get("q");
     const albumId = searchParams.get("album");
-
-    // const handleBack = () => {
-    //     setSearchParams({ q: currentQuery, album: albumId });
-    // };
 
     if (isLoading) {
         return <p className="display__loading">Cargando los detalles...</p>;

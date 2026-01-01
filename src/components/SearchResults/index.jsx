@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import Song from "../Song/";
 import useFetchTracks from "../../hooks/useFetchTracks.js";
@@ -6,6 +6,9 @@ import "../SearchResults/SearchResults.scss";
 
 function SearchResults({ albums, librarySongs, onSongClick, onAddToLibrary }) {
     const [searchParams, setSearchParams] = useSearchParams();
+    const gridRef = useRef(null);
+
+    const [hoveredIndex, setHoveredIndex] = useState(null);
 
     const currentQuery = searchParams.get("q");
     const selectedAlbumId = searchParams.get("album");
@@ -14,11 +17,42 @@ function SearchResults({ albums, librarySongs, onSongClick, onAddToLibrary }) {
 
     const { tracks, isLoading, error } = useFetchTracks(selectedAlbumId);
 
+    /* ----- funciones para el efecto hover de los álbumes --------- */
+    useEffect(() => {
+        const grid = gridRef.current;
+        if (!grid) return;
+
+        const allItems = Array.from(grid.children);
+
+        if (hoveredIndex === null) {
+            allItems.forEach((item) => item.classList.remove("shifted"));
+            return;
+        }
+
+        const hoveredItem = allItems[hoveredIndex];
+        if (!hoveredItem) return;
+
+        const hoveredTop = hoveredItem.getBoundingClientRect().top;
+
+        allItems.forEach((item, index) => {
+            const shouldBeShifted =
+                index > hoveredIndex &&
+                Math.abs(item.getBoundingClientRect().top - hoveredTop) < 1;
+
+            item.classList.toggle("shifted", shouldBeShifted);
+        });
+    }, [hoveredIndex]);
+    /*---------- final de las funciones ------------*/
+
     return (
         <>
             {selectedAlbumId === null ? (
-                <div className="display__album-grid">
-                    {albums.map((album) => {
+                <div
+                    className="display__album-grid"
+                    ref={gridRef}
+                    onMouseLeave={() => setHoveredIndex(null)}
+                >
+                    {albums.map((album, index) => {
                         const {
                             idAlbum,
                             strAlbumThumb,
@@ -31,6 +65,7 @@ function SearchResults({ albums, librarySongs, onSongClick, onAddToLibrary }) {
                             <div
                                 className="display__album-item"
                                 key={idAlbum}
+                                onMouseEnter={() => setHoveredIndex(index)}
                                 onClick={() =>
                                     setSearchParams({
                                         q: currentQuery,
@@ -42,6 +77,7 @@ function SearchResults({ albums, librarySongs, onSongClick, onAddToLibrary }) {
                             >
                                 <div className="display__album-thumb">
                                     <img
+                                        className="display__img"
                                         src={strAlbumThumb}
                                         alt={`Imagen de portada de ${strAlbum}`}
                                     />

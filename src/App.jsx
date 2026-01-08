@@ -5,8 +5,8 @@ import Sidebar from "./components/Sidebar";
 import Display from "./components/Display";
 import { Route, Routes } from "react-router-dom";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { formatSearchQuery } from "./utilsJS/utils.js";
 import useFetchAlbum from "./hooks/useFetchAlbum.js";
+import { ThemedProvider } from "styled-components";
 
 function App() {
     //Variable para la navegación

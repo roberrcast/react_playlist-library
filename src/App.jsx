@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import styled from "styled-components";
 import Header from "./components/Header";
 import SearchBar from "./components/SearchBar";
 import Sidebar from "./components/Sidebar";
@@ -6,7 +7,15 @@ import Display from "./components/Display";
 import { Route, Routes } from "react-router-dom";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import useFetchAlbum from "./hooks/useFetchAlbum.js";
-import { ThemedProvider } from "styled-components";
+
+const AppWrapper = styled.div`
+    /* Se pueden añadir estilos para el wrapper después */
+`;
+
+const MainContent = styled.main`
+    display: flex;
+    box-sizing: border-box;
+`;
 
 function App() {
     //Variable para la navegación
@@ -69,10 +78,10 @@ function App() {
     }, [librarySongs]);
 
     return (
-        <div className="app">
+        <AppWrapper>
             <Header title="Biblioteca" />
 
-            <main>
+            <MainContent>
                 <Routes>
                     <Route
                         path="/"
@@ -129,8 +138,8 @@ function App() {
                         }
                     />
                 </Routes>
-            </main>
-        </div>
+            </MainContent>
+        </AppWrapper>
     );
 }
 

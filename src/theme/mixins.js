@@ -1,10 +1,4 @@
-import { css } from "styled-component";
-
-// una función auxiliar para generar un clamp() en CSS para fluidamente escalar valores
-// @param {string} min - el valor mínimo (p.ej., '0.7rem').
-// @param {string} pref - el valor preferido (p.ej., 1rem) .
-// @param {string} max - el valor máximo (p.ej., 22rem).
-// @returns {string} una función clamp() CSS.
+import { css } from "styled-components";
 
 //Funciones no exportadas para uso interno
 const parseUnit = (value) => {
@@ -13,22 +7,42 @@ const parseUnit = (value) => {
     return { val: parseFloat(match[1]), unit: match[2] };
 };
 
-const fluid = (minSize, maxSize, minBreakpoint, maxBreakpoint) => {
-    const { val: minSizeVal, unit: sizeUnit } = parseUnit(minSize);
-    const { val: maxSizeVal } = parseUnit(maxSize);
-    const { val: minBreakpointVal } = parseUnit(minBreakpoint);
-    const { val: maxBreakpoint } = parseUnit(maxBreakpoint);
+//Función interna para convertir a pixeles
+const convertToPx = (value, rootFontSize = 16) => {
+    const { val, unit } = parseUnit(value);
+    if (unit === "rem") {
+        return val * rootFontSize;
+    }
 
-    const slope =
-        (maxSizeVal - minSizeVal) / (maxBreakPointVal - minBreakPointVal);
-    const intercept = minSizeVal - slope * minBreakpointVal;
-
-    const preferredValue = `${(slope * 100).toFixed(4)}vw + ${intercept.toFixed(4)}${sizeUnit}`;
-
-    return `clamp(${minSize}, ${preferredValue}, ${maxSize})`;
+    return val;
 };
 
 // --Funciones y mixins exportados--
+
+// una función auxiliar para generar un clamp() en CSS para fluidamente escalar valores
+// @param {string} min - el valor mínimo (p.ej., '0.7rem').
+// @param {string} pref - el valor preferido (p.ej., 1rem) .
+// @param {string} max - el valor máximo (p.ej., 22rem).
+// @returns {string} una función clamp() CSS.
+
+export const fluid = (minSize, maxSize, minBreakpoint, maxBreakpoint) => {
+    //Convertimos todos los inputs a pixeles para calcular correctamente
+    const minSizePx = convertToPx(minSize);
+    const maxSizePx = convertToPx(maxSize);
+    const minBreakpointPx = convertToPx(minBreakpoint);
+    const maxBreakpointPx = convertToPx(maxBreakpoint);
+
+    const slope = (maxSizePx - minSizePx) / (maxBreakpointPx - minBreakpointPx);
+
+    //El intercept ahora está calculado en pixeles
+    const interceptPx = minSizePx - slope * minBreakpointPx;
+
+    //La parte media de la función clamp(), usando el slope e intercept calculados
+    const preferredValue = `${(slope * 100).toFixed(4)}vw + ${(interceptPx / 16).toFixed(4)}rem`;
+
+    //Usamos los valores originales de min/max en el clamp() final para precisión
+    return `clamp(${minSize}, ${preferredValue}, ${maxSize})`;
+};
 
 //Mixin para el focus con efecto glow para el search bar
 export const focusGlow = css`
@@ -54,15 +68,15 @@ export const hoverText = (
     transitionTime = "0.2s",
     transitionAnimation = "ease-in-out",
 ) => css`
-transition: ${transitionTime} ${transitionAnimation};
+    transition: ${transitionTime} ${transitionAnimation};
 
-@media (hover: hover) {
-&:hover {
-cursor: pointer,
-font-weight: ${fontWeight};
-transform: scale(${scale});
-}
-}
+    @media (hover: hover) {
+        &:hover {
+            cursor: pointer;
+            font-weight: ${fontWeight};
+            transform: scale(${scale});
+        }
+    }
 `;
 
 //Mixin para el estilo hover del button
@@ -98,7 +112,7 @@ export const playlistButton = (background, border) => css`
 
 //Mixin para la elipsis del texto
 export const textEllipsisStyle = css`
-    font-size: ${fluid("0.7rem", "1rem", "22.265rem", "109.091rem")};
+    font-size: ${fluid("0.7rem", "1rem", "22.656rem", "109.091rem")};
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;

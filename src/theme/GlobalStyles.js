@@ -2,7 +2,6 @@ import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
 
-body {
 *, *::before, *::after {
 box-sizing: border-box;
 margin: 0;
@@ -16,10 +15,10 @@ font-size: 16px;
 body {
 background: ${({ theme }) => theme.colors.background};
 color: ${({ theme }) => theme.colors.mainFont};
-font-family: ${({ theme }) => theme.fonts.primary};
-font-weight: ${({ theme }) => theme.fonts.weights.global};
--webkit-font-smoothing: antialised;
--moz-osx-font-smoothing: grayscaled;
+font-family: ${({ theme }) => theme.font.primary};
+font-weight: ${({ theme }) => theme.font.weights.global};
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
 }
 }
 `;

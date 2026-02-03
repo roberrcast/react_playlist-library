@@ -1,7 +1,6 @@
 import React from "react";
 import { formatDuration } from "../../utilsJS/utils.js";
-import "./Song.scss";
-
+import * as Styled from "../Display/styles";
 //Botones para agregar, borrar y tick
 //Botón para agregar
 import { ReactComponent as AddIcon } from "../../assets/addSvg.svg";
@@ -20,44 +19,44 @@ const Song = ({ song, onAddToLibrary, onDeleteFromLibrary, isInLibrary }) => {
 
     return (
         <>
-            <div className="display__wrapper-outer">
-                <div className="display__grid-art">
-                    <img
+            <Styled.WrapperOuter>
+                <Styled.GridArt>
+                    <Styled.GridImg
                         src={song.albumArt}
                         alt={song.alt}
                         className="display__grid-img"
                     />
-                </div>
+                </Styled.GridArt>
 
-                <div className="display__wrapper-inner">
-                    <p className="display__grid-title">{song.title}</p>
+                <Styled.WrapperInner>
+                    <Styled.GridTitle>{song.title}</Styled.GridTitle>
 
-                    <p className="display__grid-artist">{song.artist}</p>
-                </div>
+                    <Styled.GridArtist>{song.artist}</Styled.GridArtist>
+                </Styled.WrapperInner>
 
-                <p className="display__grid-album">{song.album}</p>
+                <Styled.GridAlbum>{song.album}</Styled.GridAlbum>
 
-                <div className="display__grid-btn-container">
+                <Styled.GridBtnContainer>
                     {onAddToLibrary && isInLibrary && (
-                        <button className="display__grid-btn--ticked" disabled>
-                            <TickIcon className="display__grid-svg--ticked" />
-                        </button>
+                        <Styled.GridBtn disabled>
+                            <Styled.GridSvg as={TickIcon} isTicked />
+                        </Styled.GridBtn>
                     )}
 
                     {onAddToLibrary && !isInLibrary && (
-                        <button
+                        <Styled.GridBtn
                             type="button"
                             className="display__grid-btn"
                             onClick={(e) =>
                                 handleButtonClick(e, () => onAddToLibrary(song))
                             }
                         >
-                            <AddIcon className="display__grid-svg" />
-                        </button>
+                            <Styled.GridSvg as={AddIcon} />
+                        </Styled.GridBtn>
                     )}
 
                     {onDeleteFromLibrary && (
-                        <button
+                        <Styled.GridBtn
                             type="button"
                             className="display__grid-btn"
                             onClick={(e) =>
@@ -66,13 +65,13 @@ const Song = ({ song, onAddToLibrary, onDeleteFromLibrary, isInLibrary }) => {
                                 )
                             }
                         >
-                            <DeleteIcon className="display__grid-svg--delete" />
-                        </button>
+                            <Styled.GridSvg as={DeleteIcon} isDelete />
+                        </Styled.GridBtn>
                     )}
-                </div>
-            </div>
+                </Styled.GridBtnContainer>
+            </Styled.WrapperOuter>
 
-            <p className="display__grid-time">{formatDuration(song.length)}</p>
+            <Styled.GridTime>{formatDuration(song.length)}</Styled.GridTime>
         </>
     );
 };

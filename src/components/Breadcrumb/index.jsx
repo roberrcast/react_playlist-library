@@ -67,7 +67,7 @@ const Breadcrumb = () => {
                     )}
 
                     <BreadcrumbItem
-                        className={`display__breadcrumb-item ${part.isActive ? "display__breadcrumb-item--active" : ""}`}
+                        active={part.isActive}
                         onClick={part.action}
                     >
                         {part.text}

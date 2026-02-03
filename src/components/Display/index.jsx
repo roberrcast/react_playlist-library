@@ -4,7 +4,7 @@ import SearchResults from "../SearchResults";
 import SongDetails from "../SongDetails";
 import Breadcrumb from "../Breadcrumb";
 import Library from "../Library";
-import "./Display.scss";
+import * as Styled from "./styles";
 
 const Display = ({
     librarySongs,
@@ -32,40 +32,40 @@ const Display = ({
 
     return (
         <>
-            <article className="display">
-                <div className="display__inner">
-                    <section className="display__showcase">
+            <Styled.DisplayWrapper>
+                <Styled.DisplayInner>
+                    <Styled.Showcase>
                         {defaultSong ? (
                             <>
-                                <div className="display__album-art">
-                                    <img
+                                <Styled.AlbumArt>
+                                    <Styled.AlbumImg
                                         src={defaultSong.albumArt}
                                         alt={defaultSong.alt}
                                         className="display__album-img"
                                     />
-                                </div>
+                                </Styled.AlbumArt>
 
-                                <div className="display__info">
-                                    <h3 className="display__info-title">
+                                <Styled.Info>
+                                    <Styled.InfoTitle>
                                         {defaultSong.title}
-                                    </h3>
-                                    <p className="display__info-band">
+                                    </Styled.InfoTitle>
+                                    <Styled.InfoBand>
                                         {defaultSong.artist}
-                                    </p>
-                                </div>
+                                    </Styled.InfoBand>
+                                </Styled.Info>
                             </>
                         ) : (
-                            <div className="display__showcase-placeholder">
-                                <p className="display__showcase-message">
+                            <Styled.PlaceHolder>
+                                <Styled.ShowcaseMessage>
                                     Seleccione un álbum o canción
-                                </p>
-                            </div>
+                                </Styled.ShowcaseMessage>
+                            </Styled.PlaceHolder>
                         )}
-                    </section>
+                    </Styled.Showcase>
 
-                    <section className="display__breadcrumb">
+                    <Styled.Breadcrumb>
                         <Breadcrumb />
-                    </section>
+                    </Styled.Breadcrumb>
 
                     <section className="display__playlist">
                         {isLoading ? (
@@ -102,8 +102,8 @@ const Display = ({
                             </p>
                         )}
                     </section>
-                </div>
-            </article>
+                </Styled.DisplayInner>
+            </Styled.DisplayWrapper>
         </>
     );
 };

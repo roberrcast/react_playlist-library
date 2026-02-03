@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "modern-normalize/modern-normalize.css";
-import "./styles/main.scss";
+//import "./styles/main.scss";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "styled-components";

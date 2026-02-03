@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
 import List from "../List";
-import "./Sidebar.scss";
 import { FaBars } from "react-icons/fa";
 import { FaTimes } from "react-icons/fa";
-/* import { formatSearchQuery } from "../../utilsJS/utils.js"; */
+import * as Styled from "./styles";
 
 function Sidebar({ onSearch, onShowLibrary, searchQuery }) {
     const [isOpen, setIsOpen] = useState(false);
@@ -30,25 +29,23 @@ function Sidebar({ onSearch, onShowLibrary, searchQuery }) {
         }
     };
 
-    const sidebarClassName = `sidebar ${isOpen ? "sidebar--is-open" : ""}`;
+    //const sidebarClassName = `sidebar ${isOpen ? "sidebar--is-open" : ""}`;
 
     return (
         <>
-            <aside className={sidebarClassName}>
-                <button className="sidebar__btn-toggle" onClick={toggle}>
+            <Styled.SidebarContainer isOpen={isOpen}>
+                <Styled.ToggleButton onClick={toggle}>
                     <FaBars />
-                </button>
-                <div className="sidebar__wrapper">
-                    <search className="sidebar__search">
-                        <form
+                </Styled.ToggleButton>
+                <Styled.SidebarWrapper>
+                    <Styled.Search>
+                        <Styled.SearchForm
                             action=""
-                            className="sidebar__form"
                             onSubmit={handleFormSubmit}
                         >
-                            <input
+                            <Styled.SearchInput
                                 type="search"
                                 id="search"
-                                className="sidebar__input"
                                 placeholder="Búsqueda"
                                 autoComplete={"off"}
                                 value={inputValue}
@@ -56,28 +53,24 @@ function Sidebar({ onSearch, onShowLibrary, searchQuery }) {
                                     setInputValue(event.target.value)
                                 }
                             />
-                            <button type="submit" className="sidebar__button">
+                            <Styled.SearchButton type="submit">
                                 <FaSearch />
-                            </button>
+                            </Styled.SearchButton>
 
-                            <button
-                                type="button"
-                                className="sidebar__close-btn"
-                                onClick={toggle}
-                            >
+                            <Styled.CloseButton type="button" onClick={toggle}>
                                 <FaTimes />
-                            </button>
-                        </form>
-                    </search>
+                            </Styled.CloseButton>
+                        </Styled.SearchForm>
+                    </Styled.Search>
 
-                    <section className="sidebar__list">
-                        <h2 className="sidebar__title">Playlists</h2>
-                        <div onClick={onShowLibrary}>
+                    <Styled.ListSection>
+                        <Styled.Title>Playlists</Styled.Title>
+                        <Styled.PlaylistItem onClick={onShowLibrary}>
                             <List name="Playlist 1" />
-                        </div>
-                    </section>
-                </div>
-            </aside>
+                        </Styled.PlaylistItem>
+                    </Styled.ListSection>
+                </Styled.SidebarWrapper>
+            </Styled.SidebarContainer>
         </>
     );
 }

@@ -1,20 +1,19 @@
 import React from "react";
 import Song from "../Song";
-import "../Song/Song.scss";
+import * as Styled from "../Display/styles";
 
 const Library = ({ onSongClick, librarySongs, onDeleteFromLibrary }) => {
     return (
         <>
             {librarySongs && librarySongs.length > 0 ? (
-                <div className="display__grid">
-                    <h4 className="display__grid-item">song</h4>
-                    <h4 className="display__grid-item">artist</h4>
-                    <h4 className="display__grid-item">album</h4>
-                    <h4 className="display__grid-item">time</h4>
+                <Styled.Grid>
+                    <h4>song</h4>
+                    <h4>artist</h4>
+                    <h4>album</h4>
+                    <h4>time</h4>
 
                     {librarySongs.map((song) => (
-                        <div
-                            className="display__grid-row"
+                        <Styled.GridRow
                             key={song.id}
                             onClick={() => onSongClick(song)}
                         >
@@ -22,11 +21,13 @@ const Library = ({ onSongClick, librarySongs, onDeleteFromLibrary }) => {
                                 song={song}
                                 onDeleteFromLibrary={onDeleteFromLibrary}
                             />
-                        </div>
+                        </Styled.GridRow>
                     ))}
-                </div>
+                </Styled.Grid>
             ) : (
-                <p className="display__empty-libray">Su librería está vacía</p>
+                <Styled.PlaylistMessages>
+                    Su librería está vacía
+                </Styled.PlaylistMessages>
             )}
         </>
     );

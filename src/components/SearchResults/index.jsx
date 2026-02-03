@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import Song from "../Song/";
 import useFetchTracks from "../../hooks/useFetchTracks.js";
-import "../SearchResults/SearchResults.scss";
+import * as Styled from "../Display/styles";
 
 function SearchResults({ albums, librarySongs, onSongClick, onAddToLibrary }) {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -47,8 +47,7 @@ function SearchResults({ albums, librarySongs, onSongClick, onAddToLibrary }) {
     return (
         <>
             {selectedAlbumId === null ? (
-                <div
-                    className="display__album-grid"
+                <Styled.AlbumGrid
                     ref={gridRef}
                     onMouseLeave={() => setHoveredIndex(null)}
                 >
@@ -62,8 +61,7 @@ function SearchResults({ albums, librarySongs, onSongClick, onAddToLibrary }) {
                         } = album;
 
                         return (
-                            <div
-                                className="display__album-item"
+                            <Styled.AlbumItem
                                 key={idAlbum}
                                 onMouseEnter={() => setHoveredIndex(index)}
                                 onClick={() =>
@@ -75,29 +73,28 @@ function SearchResults({ albums, librarySongs, onSongClick, onAddToLibrary }) {
                                     })
                                 }
                             >
-                                <div className="display__album-thumb">
-                                    <img
-                                        className="display__img"
+                                <Styled.AlbumThumb>
+                                    <Styled.AlbumCoverImg
                                         src={strAlbumThumb}
                                         alt={`Imagen de portada de ${strAlbum}`}
                                     />
-                                </div>
+                                </Styled.AlbumThumb>
 
-                                <p className="display__album-title">
+                                <Styled.AlbumTitle>
                                     {strAlbum}
-                                </p>
+                                </Styled.AlbumTitle>
 
-                                <p className="display__album-year">
+                                <Styled.AlbumYear>
                                     {intYearReleased}
-                                </p>
+                                </Styled.AlbumYear>
 
-                                <p className="display__album-artist">
+                                <Styled.AlbumArtist>
                                     {strArtist}
-                                </p>
-                            </div>
+                                </Styled.AlbumArtist>
+                            </Styled.AlbumItem>
                         );
                     })}
-                </div>
+                </Styled.AlbumGrid>
             ) : (
                 <>
                     {isLoading && (
@@ -107,13 +104,13 @@ function SearchResults({ albums, librarySongs, onSongClick, onAddToLibrary }) {
                     {error && <p className="display__error">{error}</p>}
 
                     {!isLoading && !error && tracks && (
-                        <div className="display__grid">
-                            <h4 className="display__grid-item">song</h4>
+                        <Styled.Grid>
+                            <h4>song</h4>
 
-                            <h4 className="display__grid-item">artist</h4>
+                            <h4>artist</h4>
 
-                            <h4 className="display__grid-item">album</h4>
-                            <h4 className="display__grid-item">time</h4>
+                            <h4>album</h4>
+                            <h4>time</h4>
 
                             {tracks.map((song) => {
                                 const normalizedSong = {
@@ -131,8 +128,7 @@ function SearchResults({ albums, librarySongs, onSongClick, onAddToLibrary }) {
                                 );
 
                                 return (
-                                    <div
-                                        className="display__grid-row"
+                                    <Styled.GridRow
                                         key={normalizedSong.id}
                                         onClick={() => {
                                             onSongClick(normalizedSong);
@@ -152,10 +148,10 @@ function SearchResults({ albums, librarySongs, onSongClick, onAddToLibrary }) {
                                             onAddToLibrary={onAddToLibrary}
                                             isInLibrary={isInLibrary}
                                         />
-                                    </div>
+                                    </Styled.GridRow>
                                 );
                             })}
-                        </div>
+                        </Styled.Grid>
                     )}
                 </>
             )}

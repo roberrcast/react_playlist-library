@@ -14,6 +14,7 @@ export const DetailsSection = styled.section`
 
 export const Genre = styled.p`
     ${textStyle("100%", "left")};
+    margin-top: 1rem;
 
     span {
         font-weight: 500;

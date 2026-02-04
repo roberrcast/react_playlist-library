@@ -16,7 +16,7 @@ const Theme = {
     font: {
         primary: '"Roboto", Arial, sans-serif',
         weights: {
-            global: 100,
+            global: 300,
         },
     },
 

@@ -1,5 +1,4 @@
 import React from "react";
-import { useSearchParams } from "react-router-dom";
 import useFetchSongDetails from "../../hooks/useFetchSongDetails";
 import * as Styled from "./styles";
 import { PlaylistMessages } from "../Display/styles";
@@ -7,10 +6,10 @@ import { PlaylistMessages } from "../Display/styles";
 const SongDetails = ({ trackId }) => {
     const { details, isLoading, error } = useFetchSongDetails(trackId);
 
-    const [searchParams, setSearchParams] = useSearchParams();
+    /* const [searchParams, setSearchParams] = useSearchParams(); */
 
-    const currentQuery = searchParams.get("q");
-    const albumId = searchParams.get("album");
+    // const currentQuery = searchParams.get("q");
+    // const albumId = searchParams.get("album");
 
     if (isLoading) {
         return <PlaylistMessages>Cargando los detalles...</PlaylistMessages>;

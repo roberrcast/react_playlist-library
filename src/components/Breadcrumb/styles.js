@@ -3,6 +3,7 @@ import { fluid } from "../../theme/mixins";
 
 export const BreadcrumbNav = styled.nav`
     padding: 30px 25px 0 25px;
+    margin-bottom: 1rem;
 `;
 
 export const BreadcrumbItem = styled.span`

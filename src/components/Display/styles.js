@@ -105,7 +105,7 @@ export const Grid = styled.div`
     grid-template-columns: auto 1fr 1fr 1fr auto auto;
     align-items: center;
     margin-bottom: 3rem;
-    gap: 0 2rem;
+    gap: 1rem 2rem;
 
     > h4:nth-of-type(1) {
         grid-column: 2;

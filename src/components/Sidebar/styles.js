@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { fluid, hover, focusGlow, hoverText } from "../../theme/mixins";
+import { fluid, hover, hoverText } from "../../theme/mixins";
 
 export const ToggleButton = styled.button`
     display: none;
@@ -27,6 +27,9 @@ export const CloseButton = styled.button`
 `;
 
 export const SidebarWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     background-color: ${({ theme }) => theme.colors.sidebarBg};
     flex-grow: 1;
     padding: 1rem;
@@ -116,10 +119,12 @@ export const SearchButton = styled.button`
 export const ListSection = styled.section``;
 
 export const Title = styled.h2`
+    margin: 1rem 0;
     font-weight: 200;
     font-size: ${fluid("1.2rem", "1.5rem", "22.656rem", "109.091rem")};
 `;
 
 export const PlaylistItem = styled.div`
+    margin: 0.5rem 0;
     ${hoverText(200, 1.01, "0.2s ease-in-out")};
 `;

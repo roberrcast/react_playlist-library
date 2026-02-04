@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import "../SearchBar/Searchbar.scss";
+import * as Styled from "./styles";
 
 function SearchBar({ onSearch }) {
     const [inputValue, setInputValue] = useState("");
@@ -18,27 +18,22 @@ function SearchBar({ onSearch }) {
 
     return (
         <>
-            <search className="search">
-                <form
-                    action=""
-                    className="search__form"
-                    onSubmit={handleOnSubmit}
-                >
-                    <input
+            <Styled.SearchWrapper>
+                <Styled.SearchForm action="" onSubmit={handleOnSubmit}>
+                    <Styled.SearchInput
                         id="search"
                         type="search"
-                        className="search__input"
                         placeholder="Busca álbumes por artista..."
                         autoComplete={"off"}
                         value={inputValue}
                         onChange={handleOnChange}
                     />
 
-                    <button type="submit" className="search__button">
+                    <Styled.SearchButton>
                         <FaSearch />
-                    </button>
-                </form>
-            </search>
+                    </Styled.SearchButton>
+                </Styled.SearchForm>
+            </Styled.SearchWrapper>
         </>
     );
 }

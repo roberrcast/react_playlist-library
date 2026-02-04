@@ -1,20 +1,26 @@
-import "./Header.scss";
+import {
+    HeaderWrapper,
+    HeaderTitle,
+    MenuWrapper,
+    Menu,
+    ListItem,
+} from "./styles";
 
 function Header({ title }) {
     return (
-        <header className="header">
-            <h1 className="header__title">{title}</h1>
+        <HeaderWrapper>
+            <HeaderTitle>{title}</HeaderTitle>
 
-            <div className="header__menu-wrapper">
-                <ul className="header__menu">
-                    <li className="header__menu-item">Songs</li>
+            <MenuWrapper>
+                <Menu>
+                    <ListItem>Songs</ListItem>
 
-                    <li className="header__menu-item">Login</li>
+                    <ListItem>Login</ListItem>
 
-                    <li className="header__menu-item">About</li>
-                </ul>
-            </div>
-        </header>
+                    <ListItem>About</ListItem>
+                </Menu>
+            </MenuWrapper>
+        </HeaderWrapper>
     );
 }
 

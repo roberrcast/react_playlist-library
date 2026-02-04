@@ -1,6 +1,10 @@
 import React from "react";
 import { useSearchParams } from "react-router-dom";
-import "./Breadcrumb.scss";
+import {
+    BreadcrumbNav,
+    BreadcrumbItem,
+    BreadcrumbSeparator,
+} from "./styles.js";
 
 const Breadcrumb = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -53,26 +57,23 @@ const Breadcrumb = () => {
     }
 
     return (
-        <nav className="display__breadcrumb-nav">
+        <BreadcrumbNav>
             {breadCrumbParts.map((part, index) => (
                 <React.Fragment key={part.text}>
                     {/*Se añade un separador antes de cada item excepto el primero*/}
                     {index > 0 && (
-                        <span className="display__breadcrumb-separator">
-                            {" "}
-                            /{" "}
-                        </span>
+                        <BreadcrumbSeparator> / </BreadcrumbSeparator>
                     )}
 
-                    <span
-                        className={`display__breadcrumb-item ${part.isActive ? "display__breadcrumb-item--active" : ""}`}
+                    <BreadcrumbItem
+                        active={part.isActive}
                         onClick={part.action}
                     >
                         {part.text}
-                    </span>
+                    </BreadcrumbItem>
                 </React.Fragment>
             ))}
-        </nav>
+        </BreadcrumbNav>
     );
 };
 

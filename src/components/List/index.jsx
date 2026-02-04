@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-import "./List.scss";
 
 function List({ name }) {
     return (

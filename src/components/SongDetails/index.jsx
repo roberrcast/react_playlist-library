@@ -1,40 +1,40 @@
 import React from "react";
-import { useSearchParams } from "react-router-dom";
 import useFetchSongDetails from "../../hooks/useFetchSongDetails";
-import "../SongDetails/SongDetails.scss";
+import * as Styled from "./styles";
+import { PlaylistMessages } from "../Display/styles";
 
 const SongDetails = ({ trackId }) => {
     const { details, isLoading, error } = useFetchSongDetails(trackId);
 
-    const [searchParams, setSearchParams] = useSearchParams();
+    /* const [searchParams, setSearchParams] = useSearchParams(); */
 
-    const currentQuery = searchParams.get("q");
-    const albumId = searchParams.get("album");
+    // const currentQuery = searchParams.get("q");
+    // const albumId = searchParams.get("album");
 
     if (isLoading) {
-        return <p className="display__loading">Cargando los detalles...</p>;
+        return <PlaylistMessages>Cargando los detalles...</PlaylistMessages>;
     }
 
     if (error) {
-        return <p className="display__error">{error}</p>;
+        return <PlaylistMessages>{error}</PlaylistMessages>;
     }
 
     return (
         <>
             {details && details.length > 0 ? (
                 details.map((detail) => (
-                    <section className="display__details" key={detail.idTrack}>
-                        <p className="display__genre">
+                    <Styled.DetailsSection key={detail.idTrack}>
+                        <Styled.Genre>
                             <span>Género</span>: {detail.strGenre}
-                        </p>
+                        </Styled.Genre>
 
-                        <p className="display__description">
+                        <Styled.Description>
                             {detail.strDescriptionEN ||
                                 "No hay descripción disponible para esta canción."}
-                        </p>
+                        </Styled.Description>
 
                         {detail.strMusicVid && (
-                            <iframe
+                            <Styled.MusicVideo
                                 src={detail.strMusicVid.replace(
                                     "watch?v=",
                                     "embed/",
@@ -43,13 +43,14 @@ const SongDetails = ({ trackId }) => {
                                 allow="accelerometer; gyroscope; picture-in-picture"
                                 allowFullScreen
                                 title="Music video"
-                                className="display__music-video"
-                            ></iframe>
+                            ></Styled.MusicVideo>
                         )}
-                    </section>
+                    </Styled.DetailsSection>
                 ))
             ) : (
-                <p>No se encontraron detalles para esta canción</p>
+                <PlaylistMessages>
+                    No se encontraron detalles para esta canción
+                </PlaylistMessages>
             )}
         </>
     );

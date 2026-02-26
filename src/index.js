@@ -8,14 +8,20 @@ import { ThemeProvider } from "styled-components";
 import Theme from "./theme";
 import GlobalStyle from "./theme/GlobalStyles";
 
+// --- Redux ---
+import { Provider } from "react-redux";
+import store from "./redux/store";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <React.StrictMode>
-        <BrowserRouter>
-            <ThemeProvider theme={Theme}>
-                <GlobalStyle />
-                <App />
-            </ThemeProvider>
-        </BrowserRouter>
+        <Provider store={store}>
+            <BrowserRouter>
+                <ThemeProvider theme={Theme}>
+                    <GlobalStyle />
+                    <App />
+                </ThemeProvider>
+            </BrowserRouter>
+        </Provider>
     </React.StrictMode>,
 );

@@ -6,16 +6,7 @@ import Breadcrumb from "../Breadcrumb";
 import Library from "../Library";
 import * as Styled from "./styles";
 
-const Display = ({
-    librarySongs,
-    queryFromURL,
-    onAddToLibrary,
-    onDeleteFromLibrary,
-    albums,
-    isLoading,
-    error,
-    viewType = "search",
-}) => {
+const Display = ({ albums, isLoading, error, viewType = "search" }) => {
     const [defaultSong, setSong] = useState(null);
     const [searchParams] = useSearchParams();
 
@@ -28,7 +19,7 @@ const Display = ({
         setSong(song);
     };
 
-    const activeList = queryFromURL ? albums : librarySongs;
+    /* const activeList = queryFromURL ? albums : librarySongs; */
 
     return (
         <>
@@ -84,17 +75,11 @@ const Display = ({
                                 albumArt={albumArt}
                             />
                         ) : viewType === "library" ? (
-                            <Library
-                                librarySongs={librarySongs}
-                                onSongClick={handleSongClick}
-                                onDeleteFromLibrary={onDeleteFromLibrary}
-                            />
+                            <Library onSongClick={handleSongClick} />
                         ) : albums && albums.length > 0 ? (
                             <SearchResults
                                 albums={albums}
-                                librarySongs={librarySongs}
                                 onSongClick={handleSongClick}
-                                onAddToLibrary={onAddToLibrary}
                             />
                         ) : (
                             <p className="display__no-results">

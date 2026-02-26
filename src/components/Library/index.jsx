@@ -2,7 +2,15 @@ import React from "react";
 import Song from "../Song";
 import * as Styled from "../Display/styles";
 
-const Library = ({ onSongClick, librarySongs, onDeleteFromLibrary }) => {
+// --- Redux Imports ---
+import { useSelector, useDispatch } from "react-redux";
+import { removeSong } from "../../redux/libraryActions.js";
+
+const Library = ({ onSongClick }) => {
+    // --- Redux Hooks ---
+    const dispatch = useDispatch();
+    const librarySongs = useSelector((state) => state);
+
     return (
         <>
             {librarySongs && librarySongs.length > 0 ? (
@@ -19,7 +27,9 @@ const Library = ({ onSongClick, librarySongs, onDeleteFromLibrary }) => {
                         >
                             <Song
                                 song={song}
-                                onDeleteFromLibrary={onDeleteFromLibrary}
+                                onDeleteFromLibrary={(id) =>
+                                    dispatch(removeSong(id))
+                                }
                             />
                         </Styled.GridRow>
                     ))}

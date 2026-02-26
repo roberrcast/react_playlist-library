@@ -4,11 +4,19 @@ import Song from "../Song/";
 import useFetchTracks from "../../hooks/useFetchTracks.js";
 import * as Styled from "../Display/styles";
 
-function SearchResults({ albums, librarySongs, onSongClick, onAddToLibrary }) {
+// --- Redux imports ---
+import { useSelector, useDispatch } from "react-redux";
+import { addSong } from "../../redux/libraryActions";
+
+function SearchResults({ albums, onSongClick }) {
     const [searchParams, setSearchParams] = useSearchParams();
     const gridRef = useRef(null);
 
     const [hoveredIndex, setHoveredIndex] = useState(null);
+
+    // --- Redux Hooks ---
+    const dispatch = useDispatch();
+    const librarySongs = useSelector((state) => state);
 
     const currentQuery = searchParams.get("q");
     const selectedAlbumId = searchParams.get("album");
@@ -145,7 +153,11 @@ function SearchResults({ albums, librarySongs, onSongClick, onAddToLibrary }) {
                                     >
                                         <Song
                                             song={normalizedSong}
-                                            onAddToLibrary={onAddToLibrary}
+                                            onAddToLibrary={() =>
+                                                dispatch(
+                                                    addSong(normalizedSong),
+                                                )
+                                            }
                                             isInLibrary={isInLibrary}
                                         />
                                     </Styled.GridRow>

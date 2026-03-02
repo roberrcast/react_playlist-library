@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchSongs } from "../../redux/slices/searchSlice";
 import * as Styled from "./styles";
 
 function SearchBar({ onSearch }) {
+    const dispatch = useDispatch();
+    const { loading } = useSelector((state) => state.search);
+
     const [inputValue, setInputValue] = useState("");
 
     const handleOnChange = (e) => {
@@ -12,6 +17,7 @@ function SearchBar({ onSearch }) {
     const handleOnSubmit = (e) => {
         e.preventDefault();
         if (inputValue.trim()) {
+            dispatch(fetchSongs(inputValue));
             onSearch(inputValue);
         }
     };
@@ -33,6 +39,14 @@ function SearchBar({ onSearch }) {
                         <FaSearch />
                     </Styled.SearchButton>
                 </Styled.SearchForm>
+
+                {loading && (
+                    <p>
+                        {" "}
+                        style={{ textAlign: "center", marginTop: "1rem" }}
+                        Cargando álbumes...
+                    </p>
+                )}
             </Styled.SearchWrapper>
         </>
     );

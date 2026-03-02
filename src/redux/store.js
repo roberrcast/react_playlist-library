@@ -1,7 +1,10 @@
-import { createStore } from "redux";
-import libraryReducer from "./libraryReducer";
+import { configureStore } from "@reduxjs/toolkit";
 
-// Le pasamos el reducer al store para que sepa cómo manejar acciones
-const store = createStore(libraryReducer);
+const store = configureStore({
+    reducer: {
+        library: libraryReducer,
+        search: searchReducer,
+    },
+});
 
 export default store;

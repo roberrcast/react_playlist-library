@@ -39,14 +39,6 @@ function SearchBar({ onSearch }) {
                         <FaSearch />
                     </Styled.SearchButton>
                 </Styled.SearchForm>
-
-                {loading && (
-                    <p>
-                        {" "}
-                        style={{ textAlign: "center", marginTop: "1rem" }}
-                        Cargando álbumes...
-                    </p>
-                )}
             </Styled.SearchWrapper>
         </>
     );

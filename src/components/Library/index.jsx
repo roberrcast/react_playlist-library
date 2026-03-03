@@ -4,12 +4,12 @@ import * as Styled from "../Display/styles";
 
 // --- Redux Imports ---
 import { useSelector, useDispatch } from "react-redux";
-import { removeSong } from "../../redux/libraryActions.js";
+import { removeSong } from "../../redux/slices/librarySlice";
 
 const Library = ({ onSongClick }) => {
     // --- Redux Hooks ---
     const dispatch = useDispatch();
-    const librarySongs = useSelector((state) => state);
+    const librarySongs = useSelector((state) => state.library);
 
     return (
         <>

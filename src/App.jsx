@@ -29,9 +29,6 @@ function App() {
     //no afecte el renderizado)
     const queryFromURL = searchParams.get("q") || "";
 
-    //Custom hook para hacer llamadas a la API
-    const { albums, isLoading, error } = useFetchAlbum(queryFromURL);
-
     //Función para la búsqueda de canciones en Sidebar
     const handleSearchQuery = (rawQuery) => {
         navigate(`/search-results?q=${rawQuery}`);

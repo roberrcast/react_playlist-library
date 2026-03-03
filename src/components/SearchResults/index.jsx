@@ -6,7 +6,7 @@ import * as Styled from "../Display/styles";
 
 // --- Redux imports ---
 import { useSelector, useDispatch } from "react-redux";
-import { addSong } from "../../redux/libraryActions";
+import { addSong } from "../../redux/slices/librarySlice";
 
 function SearchResults({ albums, onSongClick }) {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -16,7 +16,13 @@ function SearchResults({ albums, onSongClick }) {
 
     // --- Redux Hooks ---
     const dispatch = useDispatch();
-    const librarySongs = useSelector((state) => state);
+    const librarySongs = useSelector((state) => state.library);
+
+    const {
+        results,
+        loading,
+        error: searchError,
+    } = useSelector((state) => state.search);
 
     const currentQuery = searchParams.get("q");
     const selectedAlbumId = searchParams.get("album");

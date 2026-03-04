@@ -5,11 +5,8 @@ import SongDetails from "../SongDetails";
 import Breadcrumb from "../Breadcrumb";
 import Library from "../Library";
 import * as Styled from "./styles";
-import { useSelector } from "react-redux";
 
 const Display = ({ viewType = "search" }) => {
-    const { results, loading, error } = useSelector((state) => state.search);
-
     const [defaultSong, setSong] = useState(null);
     const { trackId: paramTrackId } = useParams();
     const [searchParams] = useSearchParams();
@@ -60,16 +57,8 @@ const Display = ({ viewType = "search" }) => {
                         <Breadcrumb />
                     </Styled.Breadcrumb>
 
-                    <section className="display__playlist">
-                        {loading ? (
-                            <p className="display__playlist-messages">
-                                Cargando...
-                            </p>
-                        ) : error ? (
-                            <p className="display__playlist-messages">
-                                {error}
-                            </p>
-                        ) : trackId ? (
+                    <section>
+                        {trackId ? (
                             <SongDetails
                                 trackId={trackId}
                                 songName={trackName}

@@ -6,7 +6,6 @@ import Sidebar from "./components/Sidebar";
 import Display from "./components/Display";
 import { Route, Routes } from "react-router-dom";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import useFetchAlbum from "./hooks/useFetchAlbum.js";
 
 const AppWrapper = styled.div`
     /* Se pueden añadir estilos para el wrapper después */
@@ -59,10 +58,7 @@ function App() {
                                     onShowLibrary={handleShowLibrary}
                                     searchQuery={queryFromURL}
                                 />
-                                <Display
-                                    viewType="search"
-                                    searchQuery={queryFromURL}
-                                />
+                                <Display viewType="search" />
                             </>
                         }
                     />

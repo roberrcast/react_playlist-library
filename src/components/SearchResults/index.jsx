@@ -63,55 +63,72 @@ function SearchResults({ onSongClick }) {
     return (
         <>
             {selectedAlbumId === null ? (
-                <Styled.AlbumGrid
-                    ref={gridRef}
-                    onMouseLeave={() => setHoveredIndex(null)}
-                >
-                    {albums &&
-                        albums.map((album, index) => {
-                            const {
-                                idAlbum,
-                                strAlbumThumb,
-                                strAlbum,
-                                strArtist,
-                                intYearReleased,
-                            } = album;
+                <>
+                    {searchLoading && <p>Buscando álbumes...</p>}
 
-                            return (
-                                <Styled.AlbumItem
-                                    key={idAlbum}
-                                    onMouseEnter={() => setHoveredIndex(index)}
-                                    onClick={() =>
-                                        setSearchParams({
-                                            q: currentQuery,
-                                            album: album.idAlbum,
-                                            albumName: album.strAlbum,
-                                            albumArt: album.strAlbumThumb,
-                                        })
-                                    }
-                                >
-                                    <Styled.AlbumThumb>
-                                        <Styled.AlbumCoverImg
-                                            src={strAlbumThumb}
-                                            alt={`Imagen de portada de ${strAlbum}`}
-                                        />
-                                    </Styled.AlbumThumb>
+                    {searchError && <p>{searchError}</p>}
 
-                                    <Styled.AlbumTitle>
-                                        {strAlbum}
-                                    </Styled.AlbumTitle>
+                    {!searchLoading &&
+                        !searchError &&
+                        albums &&
+                        albums.length === 0 && <p>No se encontraron álbumes</p>}
+                    {!searchLoading &&
+                        !searchError &&
+                        albums &&
+                        albums.length > 0 && (
+                            <Styled.AlbumGrid
+                                ref={gridRef}
+                                onMouseLeave={() => setHoveredIndex(null)}
+                            >
+                                {albums.map((album, index) => {
+                                    const {
+                                        idAlbum,
+                                        strAlbumThumb,
+                                        strAlbum,
+                                        strArtist,
+                                        intYearReleased,
+                                    } = album;
 
-                                    <Styled.AlbumYear>
-                                        {intYearReleased}
-                                    </Styled.AlbumYear>
+                                    return (
+                                        <Styled.AlbumItem
+                                            key={idAlbum}
+                                            onMouseEnter={() =>
+                                                setHoveredIndex(index)
+                                            }
+                                            onClick={() =>
+                                                setSearchParams({
+                                                    q: currentQuery,
+                                                    album: album.idAlbum,
+                                                    albumName: album.strAlbum,
+                                                    albumArt:
+                                                        album.strAlbumThumb,
+                                                })
+                                            }
+                                        >
+                                            <Styled.AlbumThumb>
+                                                <Styled.AlbumCoverImg
+                                                    src={strAlbumThumb}
+                                                    alt={`Imagen de portada de ${strAlbum}`}
+                                                />
+                                            </Styled.AlbumThumb>
 
-                                    <Styled.AlbumArtist>
-                                        {strArtist}
-                                    </Styled.AlbumArtist>
-                                </Styled.AlbumItem>
-                            );
-                        })}
-                </Styled.AlbumGrid>
+                                            <Styled.AlbumTitle>
+                                                {strAlbum}
+                                            </Styled.AlbumTitle>
+
+                                            <Styled.AlbumYear>
+                                                {intYearReleased}
+                                            </Styled.AlbumYear>
+
+                                            <Styled.AlbumArtist>
+                                                {strArtist}
+                                            </Styled.AlbumArtist>
+                                        </Styled.AlbumItem>
+                                    );
+                                })}
+                            </Styled.AlbumGrid>
+                        )}
+                </>
             ) : (
                 <>
                     {isLoading && (

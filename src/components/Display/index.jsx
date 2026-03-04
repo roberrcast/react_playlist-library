@@ -78,12 +78,8 @@ const Display = ({ viewType = "search" }) => {
                             />
                         ) : viewType === "library" ? (
                             <Library onSongClick={handleSongClick} />
-                        ) : results && results.length > 0 ? (
-                            <SearchResults onSongClick={handleSongClick} />
                         ) : (
-                            <p className="display__no-results">
-                                No se encontraron resultados
-                            </p>
+                            <SearchResults onSongClick={handleSongClick} />
                         )}
                     </section>
                 </Styled.DisplayInner>

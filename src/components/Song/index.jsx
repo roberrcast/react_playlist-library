@@ -1,6 +1,7 @@
 import React from "react";
 import { formatDuration } from "../../utilsJS/utils.js";
 import * as Styled from "../Display/styles";
+
 //Botones para agregar, borrar y tick
 //Botón para agregar
 import { ReactComponent as AddIcon } from "../../assets/addSvg.svg";
@@ -48,7 +49,7 @@ const Song = ({ song, onAddToLibrary, onDeleteFromLibrary, isInLibrary }) => {
                             type="button"
                             className="display__grid-btn"
                             onClick={(e) =>
-                                handleButtonClick(e, () => onAddToLibrary(song))
+                                handleButtonClick(e, onAddToLibrary)
                             }
                         >
                             <Styled.GridSvg as={AddIcon} />

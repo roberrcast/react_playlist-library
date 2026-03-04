@@ -2,8 +2,10 @@ import React from "react";
 import useFetchSongDetails from "../../hooks/useFetchSongDetails";
 import * as Styled from "./styles";
 import { PlaylistMessages } from "../Display/styles";
+import { useParams } from "react-router-dom";
 
-const SongDetails = ({ trackId }) => {
+const SongDetails = () => {
+    const { trackId } = useParams();
     const { details, isLoading, error } = useFetchSongDetails(trackId);
 
     /* const [searchParams, setSearchParams] = useSearchParams(); */

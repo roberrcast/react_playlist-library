@@ -61,11 +61,22 @@ function App() {
                                 />
                                 <Display
                                     viewType="search"
-                                    albums={albums}
-                                    isLoading={isLoading}
-                                    error={error}
                                     searchQuery={queryFromURL}
                                 />
+                            </>
+                        }
+                    />
+
+                    <Route
+                        path="/track/:trackId"
+                        element={
+                            <>
+                                <Sidebar
+                                    onSearch={handleSearchQuery}
+                                    onShowLibrary={handleShowLibrary}
+                                    searchQuery={queryFromURL}
+                                />
+                                <Display viewType="search" />
                             </>
                         }
                     />
@@ -80,12 +91,7 @@ function App() {
                                     searchQuery={queryFromURL}
                                 />
 
-                                <Display
-                                    viewType="library"
-                                    albums={albums}
-                                    isLoading={isLoading}
-                                    error={error}
-                                />
+                                <Display viewType="library" />
                             </>
                         }
                     />

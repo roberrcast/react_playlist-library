@@ -4,15 +4,15 @@ import { formatSearchQuery } from "../../utilsJS/utils";
 
 export const fetchSongs = createAsyncThunk(
     "search/fetchSongs",
-    async (query, { rejectWithValule }) => {
+    async (query, { rejectWithValue }) => {
         try {
             const formattedQuery = formatSearchQuery(query);
             const response = await axios.get(
-                "/api/v1/json/123/searchalbum.php?s=${formattedQuery",
+                `/api/v1/json/123/searchalbum.php?s=${formattedQuery}`,
             );
             return response.data.album || [];
         } catch (error) {
-            return rejectWithValule(
+            return rejectWithValue(
                 "Hubo un error al intentar conseguir los álbumes",
             );
         }

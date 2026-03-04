@@ -57,7 +57,7 @@ const Display = ({ viewType = "search" }) => {
                         <Breadcrumb />
                     </Styled.Breadcrumb>
 
-                    <section>
+                    <Styled.Playlist>
                         {trackId ? (
                             <SongDetails
                                 trackId={trackId}
@@ -70,7 +70,7 @@ const Display = ({ viewType = "search" }) => {
                         ) : (
                             <SearchResults onSongClick={handleSongClick} />
                         )}
-                    </section>
+                    </Styled.Playlist>
                 </Styled.DisplayInner>
             </Styled.DisplayWrapper>
         </>

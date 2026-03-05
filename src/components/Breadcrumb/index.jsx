@@ -1,5 +1,5 @@
 import React from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import {
     BreadcrumbNav,
     BreadcrumbItem,
@@ -8,6 +8,7 @@ import {
 
 const Breadcrumb = () => {
     const [searchParams, setSearchParams] = useSearchParams();
+    const navigate = useNavigate();
 
     const query = searchParams.get("q");
     const albumId = searchParams.get("album");
@@ -27,7 +28,7 @@ const Breadcrumb = () => {
         text: query,
         //Esta parte estará activa sólo si no hay álbum selecto
         isActive: !albumId,
-        action: () => setSearchParams({ q: query }),
+        action: () => navigate(`/search-results?q=${query}`),
     });
 
     //La parte del álbum
@@ -37,12 +38,9 @@ const Breadcrumb = () => {
             //El álbum está activo sólo si hay canción seleccionada
             isActive: !songName,
             action: () =>
-                setSearchParams({
-                    q: query,
-                    album: albumId,
-                    albumName: albumName,
-                    albumArt: albumArt,
-                }),
+                navigate(
+                    `/search-results?q=${query}&album=${albumId}&albumName=${albumName}&albumArt=${albumArt}`,
+                ),
         });
     }
 

@@ -1,16 +1,17 @@
 import React, { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import SearchResults from "../SearchResults";
 import SongDetails from "../SongDetails";
 import Breadcrumb from "../Breadcrumb";
 import Library from "../Library";
 import * as Styled from "./styles";
 
-const Display = ({ albums, isLoading, error, viewType = "search" }) => {
+const Display = ({ viewType = "search" }) => {
     const [defaultSong, setSong] = useState(null);
+    const { trackId: paramTrackId } = useParams();
     const [searchParams] = useSearchParams();
 
-    const trackId = searchParams.get("trackId");
+    const trackId = paramTrackId || searchParams.get("trackId");
     const trackName = searchParams.get("track");
     const albumName = searchParams.get("albumName");
     const albumArt = searchParams.get("albumArt");
@@ -18,8 +19,6 @@ const Display = ({ albums, isLoading, error, viewType = "search" }) => {
     const handleSongClick = (song) => {
         setSong(song);
     };
-
-    /* const activeList = queryFromURL ? albums : librarySongs; */
 
     return (
         <>
@@ -58,16 +57,8 @@ const Display = ({ albums, isLoading, error, viewType = "search" }) => {
                         <Breadcrumb />
                     </Styled.Breadcrumb>
 
-                    <section className="display__playlist">
-                        {isLoading ? (
-                            <p className="display__playlist-messages">
-                                Cargando...
-                            </p>
-                        ) : error ? (
-                            <p className="display__playlist-messages">
-                                {error}
-                            </p>
-                        ) : trackId ? (
+                    <Styled.Playlist>
+                        {trackId ? (
                             <SongDetails
                                 trackId={trackId}
                                 songName={trackName}
@@ -76,17 +67,10 @@ const Display = ({ albums, isLoading, error, viewType = "search" }) => {
                             />
                         ) : viewType === "library" ? (
                             <Library onSongClick={handleSongClick} />
-                        ) : albums && albums.length > 0 ? (
-                            <SearchResults
-                                albums={albums}
-                                onSongClick={handleSongClick}
-                            />
                         ) : (
-                            <p className="display__no-results">
-                                No se encontraron resultados
-                            </p>
+                            <SearchResults onSongClick={handleSongClick} />
                         )}
-                    </section>
+                    </Styled.Playlist>
                 </Styled.DisplayInner>
             </Styled.DisplayWrapper>
         </>

@@ -6,7 +6,6 @@ import Sidebar from "./components/Sidebar";
 import Display from "./components/Display";
 import { Route, Routes } from "react-router-dom";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import useFetchAlbum from "./hooks/useFetchAlbum.js";
 
 const AppWrapper = styled.div`
     /* Se pueden añadir estilos para el wrapper después */
@@ -28,9 +27,6 @@ function App() {
     //Función para leer el search query directamente de la URL (que hará que recargar la página
     //no afecte el renderizado)
     const queryFromURL = searchParams.get("q") || "";
-
-    //Custom hook para hacer llamadas a la API
-    const { albums, isLoading, error } = useFetchAlbum(queryFromURL);
 
     //Función para la búsqueda de canciones en Sidebar
     const handleSearchQuery = (rawQuery) => {
@@ -62,13 +58,21 @@ function App() {
                                     onShowLibrary={handleShowLibrary}
                                     searchQuery={queryFromURL}
                                 />
-                                <Display
-                                    viewType="search"
-                                    albums={albums}
-                                    isLoading={isLoading}
-                                    error={error}
+                                <Display viewType="search" />
+                            </>
+                        }
+                    />
+
+                    <Route
+                        path="/track/:trackId"
+                        element={
+                            <>
+                                <Sidebar
+                                    onSearch={handleSearchQuery}
+                                    onShowLibrary={handleShowLibrary}
                                     searchQuery={queryFromURL}
                                 />
+                                <Display viewType="search" />
                             </>
                         }
                     />
@@ -83,12 +87,7 @@ function App() {
                                     searchQuery={queryFromURL}
                                 />
 
-                                <Display
-                                    viewType="library"
-                                    albums={albums}
-                                    isLoading={isLoading}
-                                    error={error}
-                                />
+                                <Display viewType="library" />
                             </>
                         }
                     />

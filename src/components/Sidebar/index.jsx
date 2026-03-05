@@ -5,7 +5,13 @@ import { FaBars } from "react-icons/fa";
 import { FaTimes } from "react-icons/fa";
 import * as Styled from "./styles";
 
+// --- Redux Imports ---
+import { useDispatch } from "react-redux";
+import { fetchSongs } from "../../redux/slices/searchSlice";
+
 function Sidebar({ onSearch, onShowLibrary, searchQuery }) {
+    const dispatch = useDispatch();
+
     const [isOpen, setIsOpen] = useState(false);
 
     //Función para hacer toggle al sidebar en mobile
@@ -25,6 +31,7 @@ function Sidebar({ onSearch, onShowLibrary, searchQuery }) {
     const handleFormSubmit = (event) => {
         event.preventDefault();
         if (inputValue.trim()) {
+            dispatch(fetchSongs(inputValue));
             onSearch(inputValue);
         }
     };

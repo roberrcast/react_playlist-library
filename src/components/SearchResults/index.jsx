@@ -1,14 +1,14 @@
 import { useState, useRef, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Song from "../Song/";
 import useFetchTracks from "../../hooks/useFetchTracks.js";
 import * as Styled from "../Display/styles";
 
 // --- Redux imports ---
 import { useSelector, useDispatch } from "react-redux";
-import { addSong } from "../../redux/libraryActions";
+import { addSong } from "../../redux/slices/librarySlice";
 
-function SearchResults({ albums, onSongClick }) {
+function SearchResults({ onSongClick }) {
     const [searchParams, setSearchParams] = useSearchParams();
     const gridRef = useRef(null);
 
@@ -16,7 +16,13 @@ function SearchResults({ albums, onSongClick }) {
 
     // --- Redux Hooks ---
     const dispatch = useDispatch();
-    const librarySongs = useSelector((state) => state);
+    const librarySongs = useSelector((state) => state.library);
+
+    const {
+        results: albums,
+        loading: searchLoading,
+        error: searchError,
+    } = useSelector((state) => state.search);
 
     const currentQuery = searchParams.get("q");
     const selectedAlbumId = searchParams.get("album");
@@ -24,6 +30,8 @@ function SearchResults({ albums, onSongClick }) {
     const albumArt = searchParams.get("albumArt");
 
     const { tracks, isLoading, error } = useFetchTracks(selectedAlbumId);
+
+    const navigate = useNavigate();
 
     /* ----- funciones para el efecto hover de los álbumes --------- */
     useEffect(() => {
@@ -55,61 +63,91 @@ function SearchResults({ albums, onSongClick }) {
     return (
         <>
             {selectedAlbumId === null ? (
-                <Styled.AlbumGrid
-                    ref={gridRef}
-                    onMouseLeave={() => setHoveredIndex(null)}
-                >
-                    {albums.map((album, index) => {
-                        const {
-                            idAlbum,
-                            strAlbumThumb,
-                            strAlbum,
-                            strArtist,
-                            intYearReleased,
-                        } = album;
+                <>
+                    {searchLoading && (
+                        <Styled.LoadingText>
+                            Buscando álbumes...
+                        </Styled.LoadingText>
+                    )}
 
-                        return (
-                            <Styled.AlbumItem
-                                key={idAlbum}
-                                onMouseEnter={() => setHoveredIndex(index)}
-                                onClick={() =>
-                                    setSearchParams({
-                                        q: currentQuery,
-                                        album: album.idAlbum,
-                                        albumName: album.strAlbum,
-                                        albumArt: album.strAlbumThumb,
-                                    })
-                                }
+                    {searchError && (
+                        <Styled.ErrorText>{searchError}</Styled.ErrorText>
+                    )}
+
+                    {!searchLoading &&
+                        !searchError &&
+                        albums &&
+                        albums.length === 0 && (
+                            <Styled.NotFoundText>
+                                No se encontraron álbumes
+                            </Styled.NotFoundText>
+                        )}
+                    {!searchLoading &&
+                        !searchError &&
+                        albums &&
+                        albums.length > 0 && (
+                            <Styled.AlbumGrid
+                                ref={gridRef}
+                                onMouseLeave={() => setHoveredIndex(null)}
                             >
-                                <Styled.AlbumThumb>
-                                    <Styled.AlbumCoverImg
-                                        src={strAlbumThumb}
-                                        alt={`Imagen de portada de ${strAlbum}`}
-                                    />
-                                </Styled.AlbumThumb>
+                                {albums.map((album, index) => {
+                                    const {
+                                        idAlbum,
+                                        strAlbumThumb,
+                                        strAlbum,
+                                        strArtist,
+                                        intYearReleased,
+                                    } = album;
 
-                                <Styled.AlbumTitle>
-                                    {strAlbum}
-                                </Styled.AlbumTitle>
+                                    return (
+                                        <Styled.AlbumItem
+                                            key={idAlbum}
+                                            onMouseEnter={() =>
+                                                setHoveredIndex(index)
+                                            }
+                                            onClick={() =>
+                                                setSearchParams({
+                                                    q: currentQuery,
+                                                    album: album.idAlbum,
+                                                    albumName: album.strAlbum,
+                                                    albumArt:
+                                                        album.strAlbumThumb,
+                                                })
+                                            }
+                                        >
+                                            <Styled.AlbumThumb>
+                                                <Styled.AlbumCoverImg
+                                                    src={strAlbumThumb}
+                                                    alt={`Imagen de portada de ${strAlbum}`}
+                                                />
+                                            </Styled.AlbumThumb>
 
-                                <Styled.AlbumYear>
-                                    {intYearReleased}
-                                </Styled.AlbumYear>
+                                            <Styled.AlbumTitle>
+                                                {strAlbum}
+                                            </Styled.AlbumTitle>
 
-                                <Styled.AlbumArtist>
-                                    {strArtist}
-                                </Styled.AlbumArtist>
-                            </Styled.AlbumItem>
-                        );
-                    })}
-                </Styled.AlbumGrid>
+                                            <Styled.AlbumYear>
+                                                {intYearReleased}
+                                            </Styled.AlbumYear>
+
+                                            <Styled.AlbumArtist>
+                                                {strArtist}
+                                            </Styled.AlbumArtist>
+                                        </Styled.AlbumItem>
+                                    );
+                                })}
+                            </Styled.AlbumGrid>
+                        )}
+                </>
             ) : (
                 <>
                     {isLoading && (
-                        <p className="display__loading">Cargando canciones.</p>
+                        <Styled.LoadingText>
+                            Cargando canciones...
+                        </Styled.LoadingText>
                     )}
 
-                    {error && <p className="display__error">{error}</p>}
+                    {error && <Styled.ErrorText>{error}</Styled.ErrorText>}
 
                     {!isLoading && !error && tracks && (
                         <Styled.Grid>
@@ -140,15 +178,9 @@ function SearchResults({ albums, onSongClick }) {
                                         key={normalizedSong.id}
                                         onClick={() => {
                                             onSongClick(normalizedSong);
-                                            setSearchParams({
-                                                q: currentQuery,
-                                                album: selectedAlbumId,
-                                                /* artist: normalizedSong.artist, */
-                                                track: normalizedSong.title,
-                                                albumName: albumName,
-                                                albumArt: albumArt,
-                                                trackId: normalizedSong.id,
-                                            });
+                                            navigate(
+                                                `/track/${normalizedSong.id}?q=${currentQuery}&album=${selectedAlbumId}&albumName=${albumName}&albumArt=${albumArt}&track=${normalizedSong.title}`,
+                                            );
                                         }}
                                     >
                                         <Song

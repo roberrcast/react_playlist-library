@@ -12,6 +12,20 @@ export const DetailsSection = styled.section`
     margin-bottom: 2rem;
 `;
 
+export const PlaylistMessages = styled.p`
+    display: flex;
+    justify-content: flex-start;
+    padding: 0 25px;
+    margin-top: 1rem;
+    font-size: ${fluid("1rem", "1.5rem", "28.438rem", "87.5rem")};
+    color: ${({ theme, error }) => (error ? theme.colors.redHover : "inherit")};
+
+    @media (max-width: 850px) {
+        flex-direction: column;
+        align-items: center;
+    }
+`;
+
 export const Genre = styled.p`
     ${textStyle("100%", "left")};
     margin-top: 1rem;

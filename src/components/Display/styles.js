@@ -6,10 +6,12 @@ import {
     playlistButton,
     fullWidth,
     hoverButton,
+    loadingErrorText,
 } from "../../theme/mixins";
 
 export const DisplayWrapper = styled.article`
     width: 100%;
+    overflow-x: hidden;
 `;
 
 export const DisplayInner = styled.div`
@@ -80,19 +82,6 @@ export const Playlist = styled.section`
 
     @media (max-width: 400px) {
         width: 95%;
-    }
-`;
-
-export const PlaylistMessages = styled.p`
-    display: flex;
-    justify-content: flex-start;
-    padding: 0 25px;
-    margin-top: 1rem;
-    font-size: ${fluid("1rem", "1.5rem", "28.438rem", "87.5rem")};
-
-    @media (max-width: 850px) {
-        flex-direction: column;
-        align-items: center;
     }
 `;
 
@@ -254,7 +243,7 @@ export const WrapperInner = styled.div`
 
 export const AlbumGrid = styled.div`
     display: grid;
-    padding: 0 25px;
+    padding: 2rem 25px;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 
     @media (max-width: 1320px) {
@@ -313,6 +302,19 @@ export const AlbumItem = styled.div`
             }
         }
     }
+`;
+
+export const LoadingText = styled.p`
+    ${loadingErrorText};
+`;
+
+export const NotFoundText = styled.p`
+    ${loadingErrorText};
+`;
+
+export const ErrorText = styled.p`
+    ${loadingErrorText};
+    color: ${({ theme }) => theme.colors.redHover};
 `;
 
 export const AlbumTitle = styled.p``;

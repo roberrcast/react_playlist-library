@@ -35,9 +35,7 @@ const Library = ({ onSongClick }) => {
                     ))}
                 </Styled.Grid>
             ) : (
-                <Styled.PlaylistMessages>
-                    Su librería está vacía
-                </Styled.PlaylistMessages>
+                <Styled.LoadingText>Su librería está vacía</Styled.LoadingText>
             )}
         </>
     );

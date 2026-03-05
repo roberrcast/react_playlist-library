@@ -64,14 +64,24 @@ function SearchResults({ onSongClick }) {
         <>
             {selectedAlbumId === null ? (
                 <>
-                    {searchLoading && <p>Buscando álbumes...</p>}
+                    {searchLoading && (
+                        <Styled.LoadingText>
+                            Buscando álbumes...
+                        </Styled.LoadingText>
+                    )}
 
-                    {searchError && <p>{searchError}</p>}
+                    {searchError && (
+                        <Styled.ErrorText>{searchError}</Styled.ErrorText>
+                    )}
 
                     {!searchLoading &&
                         !searchError &&
                         albums &&
-                        albums.length === 0 && <p>No se encontraron álbumes</p>}
+                        albums.length === 0 && (
+                            <Styled.NotFoundText>
+                                No se encontraron álbumes
+                            </Styled.NotFoundText>
+                        )}
                     {!searchLoading &&
                         !searchError &&
                         albums &&
@@ -132,10 +142,12 @@ function SearchResults({ onSongClick }) {
             ) : (
                 <>
                     {isLoading && (
-                        <p className="display__loading">Cargando canciones.</p>
+                        <Styled.LoadingText>
+                            Cargando canciones...
+                        </Styled.LoadingText>
                     )}
 
-                    {error && <p className="display__error">{error}</p>}
+                    {error && <Styled.ErrorText>{error}</Styled.ErrorText>}
 
                     {!isLoading && !error && tracks && (
                         <Styled.Grid>

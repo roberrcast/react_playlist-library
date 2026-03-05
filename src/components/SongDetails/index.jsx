@@ -1,7 +1,6 @@
 import React from "react";
 import useFetchSongDetails from "../../hooks/useFetchSongDetails";
 import * as Styled from "./styles";
-import { PlaylistMessages } from "../Display/styles";
 import { useParams } from "react-router-dom";
 
 const SongDetails = () => {
@@ -14,11 +13,15 @@ const SongDetails = () => {
     // const albumId = searchParams.get("album");
 
     if (isLoading) {
-        return <PlaylistMessages>Cargando los detalles...</PlaylistMessages>;
+        return (
+            <Styled.PlaylistMessages>
+                Cargando los detalles...
+            </Styled.PlaylistMessages>
+        );
     }
 
     if (error) {
-        return <PlaylistMessages>{error}</PlaylistMessages>;
+        return <Styled.PlaylistMessages error>{error}</Styled.PlaylistMessages>;
     }
 
     return (
@@ -50,9 +53,9 @@ const SongDetails = () => {
                     </Styled.DetailsSection>
                 ))
             ) : (
-                <PlaylistMessages>
+                <Styled.PlaylistMessages>
                     No se encontraron detalles para esta canción
-                </PlaylistMessages>
+                </Styled.PlaylistMessages>
             )}
         </>
     );

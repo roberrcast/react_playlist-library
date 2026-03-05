@@ -131,3 +131,7 @@ export const textStyle = (width, textAlign) => css`
     width: ${width};
     text-align: ${textAlign};
 `;
+
+export const loadingErrorText = css`
+    font-size: ${fluid("1rem", "1.5rem", "28.438rem", "87.5rem")};
+`;

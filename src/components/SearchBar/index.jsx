@@ -29,13 +29,14 @@ function SearchBar({ onSearch }) {
                     <Styled.SearchInput
                         id="search"
                         type="search"
+                        disabled={loading}
                         placeholder="Busca álbumes por artista..."
                         autoComplete={"off"}
                         value={inputValue}
                         onChange={handleOnChange}
                     />
 
-                    <Styled.SearchButton>
+                    <Styled.SearchButton type="submit" disabled={loading}>
                         <FaSearch />
                     </Styled.SearchButton>
                 </Styled.SearchForm>

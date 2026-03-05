@@ -43,4 +43,9 @@ export const SearchButton = styled.button`
     ${hover};
     font-size: 2rem;
     font-weight: 400;
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
 `;

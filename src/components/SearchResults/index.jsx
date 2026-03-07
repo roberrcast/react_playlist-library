@@ -179,7 +179,7 @@ function SearchResults({ onSongClick }) {
                                         onClick={() => {
                                             onSongClick(normalizedSong);
                                             navigate(
-                                                `/track/${normalizedSong.id}?q=${currentQuery}&album=${selectedAlbumId}&albumName=${albumName}&albumArt=${albumArt}&track=${normalizedSong.title}`,
+                                                `/track/${encodeURIComponent(normalizedSong.id)}?q=${encodeURIComponent(currentQuery)}&album=${encodeURIComponent(selectedAlbumId)}&albumName=${encodeURIComponent(albumName)}&albumArt=${encodeURIComponent(albumArt)}&track=${encodeURIComponent(normalizedSong.title)}`,
                                             );
                                         }}
                                     >

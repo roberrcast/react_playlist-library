@@ -28,7 +28,8 @@ const Breadcrumb = () => {
         text: query,
         //Esta parte estará activa sólo si no hay álbum selecto
         isActive: !albumId,
-        action: () => navigate(`/search-results?q=${query}`),
+        action: () =>
+            navigate(`/search-results?q=${encodeURIComponent(query)}`),
     });
 
     //La parte del álbum
@@ -39,7 +40,7 @@ const Breadcrumb = () => {
             isActive: !songName,
             action: () =>
                 navigate(
-                    `/search-results?q=${query}&album=${albumId}&albumName=${albumName}&albumArt=${albumArt}`,
+                    `/search-results?q=${encodeURIComponent(query)}&album=${encodeURIComponent(albumId)}&albumName=${encodeURIComponent(albumName)}&albumArt=${encodeURIComponent(albumArt)}`,
                 ),
         });
     }

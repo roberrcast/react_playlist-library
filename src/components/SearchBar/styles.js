@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { hover } from "../../theme/mixins";
 
-//Usamos ("search") porque hay un bug en styled components que no reconoce este nuevo tag
+// Usamos el elemento HTML nativo de "<search>" para mantener la semántica
+// React todavía no lo reconoce, lo cual causa una advertencia en la consola en los tests
+// Esto se puede ignorar seguramente hasta que React ofrezca soporte
 export const SearchWrapper = styled("search")`
     display: block;
     width: 60%;

@@ -8,7 +8,7 @@ export const fetchSongs = createAsyncThunk(
         try {
             const formattedQuery = formatSearchQuery(query);
             const response = await axios.get(
-                `/api/v1/json/123/searchalbum.php?s=${formattedQuery}`,
+                `/api/v1/json/2/searchalbum.php?s=${formattedQuery}`,
             );
             return response.data.album || [];
         } catch (error) {

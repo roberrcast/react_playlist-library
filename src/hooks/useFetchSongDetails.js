@@ -13,7 +13,7 @@ const useFetchSongDetails = (trackId) => {
             const fetchSongDetails = async () => {
                 try {
                     const response = await axios.get(
-                        `/api/v1/json/123/track.php?h=${trackId}`,
+                        `/api/v1/json/2/track.php?h=${trackId}`,
                     );
                     console.log(response);
                     setDetails({

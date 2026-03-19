@@ -22,11 +22,7 @@ const Song = ({ song, onAddToLibrary, onDeleteFromLibrary, isInLibrary }) => {
         <>
             <Styled.WrapperOuter>
                 <Styled.GridArt>
-                    <Styled.GridImg
-                        src={song.albumArt}
-                        alt={song.alt}
-                        className="display__grid-img"
-                    />
+                    <Styled.GridImg src={song.albumArt} alt={song.alt} />
                 </Styled.GridArt>
 
                 <Styled.WrapperInner>

@@ -205,11 +205,11 @@ export const GridBtn = styled.button`
 
 export const GridSvg = styled.svg`
     ${fullWidth};
-    fill: ${({ theme, isTicked }) =>
-        isTicked ? theme.colors.tick : theme.colors.icon};
+    fill: ${({ theme, $isTicked }) =>
+        $isTicked ? theme.colors.tick : theme.colors.icon};
 
-    ${({ isDelete, theme }) =>
-        isDelete &&
+    ${({ $isDelete, theme }) =>
+        $isDelete &&
         css`
             ${hoverButton(
                 theme.colors.dryRed,

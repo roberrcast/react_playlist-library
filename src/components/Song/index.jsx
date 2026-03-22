@@ -36,17 +36,17 @@ const Song = ({ song, onAddToLibrary, onDeleteFromLibrary, isInLibrary }) => {
                 <Styled.GridBtnContainer>
                     {onAddToLibrary && isInLibrary && (
                         <Styled.GridBtn disabled>
-                            <Styled.GridSvg as={TickIcon} isTicked />
+                            <Styled.GridSvg as={TickIcon} $isTicked />
                         </Styled.GridBtn>
                     )}
 
                     {onAddToLibrary && !isInLibrary && (
                         <Styled.GridBtn
                             type="button"
-                            className="display__grid-btn"
                             onClick={(e) =>
                                 handleButtonClick(e, onAddToLibrary)
                             }
+                            aria-label={`Agregar ${song.title} a la biblioteca`}
                         >
                             <Styled.GridSvg as={AddIcon} />
                         </Styled.GridBtn>
@@ -55,14 +55,14 @@ const Song = ({ song, onAddToLibrary, onDeleteFromLibrary, isInLibrary }) => {
                     {onDeleteFromLibrary && (
                         <Styled.GridBtn
                             type="button"
-                            className="display__grid-btn"
                             onClick={(e) =>
                                 handleButtonClick(e, () =>
                                     onDeleteFromLibrary(song.id),
                                 )
                             }
+                            aria-label={`Eliminar ${song.title} de la biblioteca`}
                         >
-                            <Styled.GridSvg as={DeleteIcon} isDelete />
+                            <Styled.GridSvg as={DeleteIcon} $isDelete />
                         </Styled.GridBtn>
                     )}
                 </Styled.GridBtnContainer>

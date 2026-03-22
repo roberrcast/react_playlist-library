@@ -7,6 +7,7 @@ import { MemoryRouter } from "react-router";
 import SearchResults from "../components/SearchResults";
 import { configureStore } from "@reduxjs/toolkit";
 import useFetchTracks from "../hooks/useFetchTracks";
+import { addSong } from "../redux/slices/librarySlice";
 
 jest.mock("../assets/addSvg.svg", () => "add-icon");
 jest.mock("../assets/deleteSvg.svg", () => "delete-icon");
@@ -76,7 +77,7 @@ describe("SearchResults Component", () => {
         expect(artist).toBeInTheDocument();
     });
 
-    it("should render a list of songs once an album is selected", () => {
+    it("should render a list of songs for a specific album and add a song to the library once the add button is clicked", () => {
         testStore = configureStore({
             reducer: {
                 search: () => ({
@@ -154,11 +155,16 @@ describe("SearchResults Component", () => {
             expect(albums.length).toBeGreaterThan(0);
         });
 
-        const buttons = screen.getAllByRole("button");
-        const addButton = buttons[0];
+        const addSongToLibrary = screen.getByRole("button", {
+            name: /agregar smells like teen spirit a la biblioteca/i,
+        });
 
-        fireEvent.click(addButton);
+        fireEvent.click(addSongToLibrary);
 
-        expect(dispatchSpy).toHaveBeenCalled();
+        expect(dispatchSpy).toHaveBeenCalledWith(
+            addSong(
+                expect.objectContaining({ title: "Smells Like Teen Spirit" }),
+            ),
+        );
     });
 });

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { formatDuration } from "../../utilsJS/utils.js";
 import * as Styled from "../Display/styles";
 
@@ -13,8 +13,13 @@ import { ReactComponent as DeleteIcon } from "../../assets/deleteSvg.svg";
 import { ReactComponent as TickIcon } from "../../assets/tickSvg.svg";
 
 const Song = ({ song, onAddToLibrary, onDeleteFromLibrary, isInLibrary }) => {
+    const [isJustAdded, setIsJustAdded] = useState(false);
+
     const handleButtonClick = (e, callback) => {
         e.stopPropagation();
+        if (callback === onAddToLibrary) {
+            setIsJustAdded(true);
+        }
         callback();
     };
 
@@ -22,11 +27,7 @@ const Song = ({ song, onAddToLibrary, onDeleteFromLibrary, isInLibrary }) => {
         <>
             <Styled.WrapperOuter>
                 <Styled.GridArt>
-                    <Styled.GridImg
-                        src={song.albumArt}
-                        alt={song.alt}
-                        className="display__grid-img"
-                    />
+                    <Styled.GridImg src={song.albumArt} alt={song.alt} />
                 </Styled.GridArt>
 
                 <Styled.WrapperInner>
@@ -39,18 +40,25 @@ const Song = ({ song, onAddToLibrary, onDeleteFromLibrary, isInLibrary }) => {
 
                 <Styled.GridBtnContainer>
                     {onAddToLibrary && isInLibrary && (
-                        <Styled.GridBtn disabled>
-                            <Styled.GridSvg as={TickIcon} isTicked />
+                        <Styled.GridBtn
+                            disabled
+                            aria-label={
+                                isJustAdded
+                                    ? `${song.title} ha sido agregada a su biblioteca`
+                                    : `${song.title} se encuentra en su biblioteca`
+                            }
+                        >
+                            <Styled.GridSvg as={TickIcon} $isTicked />
                         </Styled.GridBtn>
                     )}
 
                     {onAddToLibrary && !isInLibrary && (
                         <Styled.GridBtn
                             type="button"
-                            className="display__grid-btn"
                             onClick={(e) =>
                                 handleButtonClick(e, onAddToLibrary)
                             }
+                            aria-label={`Agregar ${song.title} a la biblioteca`}
                         >
                             <Styled.GridSvg as={AddIcon} />
                         </Styled.GridBtn>
@@ -59,14 +67,14 @@ const Song = ({ song, onAddToLibrary, onDeleteFromLibrary, isInLibrary }) => {
                     {onDeleteFromLibrary && (
                         <Styled.GridBtn
                             type="button"
-                            className="display__grid-btn"
                             onClick={(e) =>
                                 handleButtonClick(e, () =>
                                     onDeleteFromLibrary(song.id),
                                 )
                             }
+                            aria-label={`Eliminar ${song.title} de la biblioteca`}
                         >
-                            <Styled.GridSvg as={DeleteIcon} isDelete />
+                            <Styled.GridSvg as={DeleteIcon} $isDelete />
                         </Styled.GridBtn>
                     )}
                 </Styled.GridBtnContainer>

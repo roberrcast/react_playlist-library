@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Song from "../Song/";
-import useFetchTracks from "../../hooks/useFetchTracks.js";
+import useFetchTracks from "../../hooks/useFetchTracks";
 import * as Styled from "../Display/styles";
 
 // --- Redux imports ---
@@ -165,6 +165,9 @@ function SearchResults({ onSongClick }) {
                                     artist: song.strArtist,
                                     album: song.strAlbum,
                                     albumArt: song.strTrackThumb || albumArt,
+                                    alt: song.strTrackThumb
+                                        ? `Imagen del single ${song.strTrack}`
+                                        : `Imagen de portada del álbum ${song.strAlbum}`,
                                     length: song.intDuration,
                                 };
 

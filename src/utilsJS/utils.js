@@ -16,7 +16,7 @@ export const formatSearchQuery = (str) => {
     const filterStr = splitStr.filter((str) => str.trim().length > 0);
 
     //Luego unimos las palabras con guión bajo "_"
-    const joinStr = filterStr.join("_");
+    const joinStr = filterStr.join(" ");
 
     //Por último hacemos todas minúsculas
     return joinStr.toLowerCase();

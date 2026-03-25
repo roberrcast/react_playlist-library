@@ -13,7 +13,7 @@ const useFetchTracks = (albumId) => {
             const fetchTracks = async () => {
                 try {
                     const response = await axios.get(
-                        `/api/v1/json/123/track.php?m=${albumId}`,
+                        `/api/v1/json/2/track.php?m=${albumId}`,
                     );
                     console.log(response);
                     setTrackState({

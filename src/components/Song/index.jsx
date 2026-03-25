@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { formatDuration } from "../../utilsJS/utils.js";
 import * as Styled from "../Display/styles";
 
@@ -13,8 +13,13 @@ import { ReactComponent as DeleteIcon } from "../../assets/deleteSvg.svg";
 import { ReactComponent as TickIcon } from "../../assets/tickSvg.svg";
 
 const Song = ({ song, onAddToLibrary, onDeleteFromLibrary, isInLibrary }) => {
+    const [isJustAdded, setIsJustAdded] = useState(false);
+
     const handleButtonClick = (e, callback) => {
         e.stopPropagation();
+        if (callback === onAddToLibrary) {
+            setIsJustAdded(true);
+        }
         callback();
     };
 
@@ -35,7 +40,14 @@ const Song = ({ song, onAddToLibrary, onDeleteFromLibrary, isInLibrary }) => {
 
                 <Styled.GridBtnContainer>
                     {onAddToLibrary && isInLibrary && (
-                        <Styled.GridBtn disabled>
+                        <Styled.GridBtn
+                            disabled
+                            aria-label={
+                                isJustAdded
+                                    ? `${song.title} ha sido agregada a su biblioteca`
+                                    : `${song.title} se encuentra en su biblioteca`
+                            }
+                        >
                             <Styled.GridSvg as={TickIcon} $isTicked />
                         </Styled.GridBtn>
                     )}

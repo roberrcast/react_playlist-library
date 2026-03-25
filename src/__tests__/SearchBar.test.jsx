@@ -26,11 +26,9 @@ describe("SearchBar component", () => {
         const mockSearch = jest.fn();
         render(
             <Provider store={store}>
-                {" "}
                 <ThemeProvider theme={Theme}>
-                    {" "}
                     <SearchBar onSearch={mockSearch} />{" "}
-                </ThemeProvider>{" "}
+                </ThemeProvider>
             </Provider>,
         );
         const input = screen.getByPlaceholderText(
